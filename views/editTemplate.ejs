@@ -1,0 +1,102 @@
+<%- include('partials/header') -%>
+
+    <h1>FL Legal Docs Generator: Edit A Template</h1>
+    
+    <div id="available-templates">
+        <h2>Available FL Summons Templates</h2>
+        <ul class="templates">
+        <% for(let i=0; i<templateInfo.length; i++) { %>
+            <li class="available-templates">
+                <span><%= templateInfo[i].countyName[0].toUpperCase() + templateInfo[i].countyName.slice(1) %></span>
+                <% if (templateInfo[i].tier === 'sc') { %>
+                    <span>Small Claims</span>
+                <% } else if (templateInfo[i].tier === 'cc') { %>
+                    <span>County Civil</span>
+                <% } else if (templateInfo[i].tier === 'ca') { %>
+                    <span>Circuit Civil</span>
+                <% } %>
+                <span id="mongoId" class="hidden"><%= templateInfo[i]._id %></span>
+                <span class='fa-solid fa-pen-to-square template'></span>
+                <span class='fa fa-trash template'></span>
+            </li>
+        <% } %>
+        </ul>
+    </div>
+
+
+    <form action="" method="POST" id="editTemplate">
+        <h2>Edit A Template</h2><i class="fa-solid fa-angle-down"></i>
+        <p>Click the <span class='fa-solid fa-pen-to-square'></span> icon for the county you would like to edit from the above list, then use the form below to edit an existing summons template. Click the <span class='fa fa-trash'></span> icon if you would lie to delete a template entirely from the databse.</p>
+        <!-- <input type="hidden" name="_method" value="PUT"/> -->
+        <h3 id="currentlyEditing">Currently Editing:</h3>
+        <input type="hidden" value="" id="mongoIdEditForm" name="editFormMongoId">
+        <p>
+            <label for="editState"><span>State: </span></label>
+            <input type="text" placeholder="State Abbreviation" name="stateName" maxLength="2" id="editState">
+        </p>
+        <p>
+            <label for="editCounty"><span>County: </span></label>
+            <input type="text" placeholder="County" name="countyName" id="editCounty">
+        </p>
+        <p>
+            <label for="editTier"><span>Filing Tier: </span></label>
+            <select name="filingTier" id="editTierSelect">
+                <option value="sc">Small Claims</option>
+                <option value="cc">County Civil</option>
+                <option value="ca">Circuit Civil</option>
+            </select>
+        </p>
+        <p>
+            <label for="editTemplateArea"><span>Document Text: </span></label>
+            <textarea id="editTemplateArea" placeholder="Paste document text here." name="docText"></textarea>
+        </p>
+        <input type="submit">
+        <!-- <button id="editTemplateButton">Edit Template</button> -->
+    </form>
+
+    <div id="available-templates">
+        <h2>Customers</h2>
+        <ul class="templates">
+            <% for(let i=0; i<customerInfo.length; i++) { %>
+                <li><span><%= customerInfo[i].customerName %> </span>
+                    <span id="customerNickname" class="hidden"><%- customerInfo[i].nickname %></span>
+                    <span class="hidden mongoId"><%- customerInfo[i]._id %></span>
+                    <span class='fa-solid fa-pen'></span>
+                    <!-- <span class='fa fa-trash'></span> -->
+                </li>
+              <% } %>
+        </ul>
+    </div>
+
+    
+    <div>
+        <h2>Edit a Customer's Contact Information</h2>
+        <p>Select the customer whose contact information you would like to edit from the dropdown, then fill out the information that needs updating.</p>
+        <form action="" method="POST" id="editCustomerContact">
+            <input type="hidden" value="" id="editCustomerForm" name="editCustomerForm">
+            <p>
+                <p>
+                    <label><span>Name: </span></label>
+                    <input type="text" name="customerName" id="customerName">
+        
+                    <label><span>Nickname: </span></label>
+                    <input type="text" name="customerNickname" id="customerNickname">
+        
+                    <label><span>Email: </span></label>
+                    <input type="email" name="customerEmail" id="customerEmail">
+                </p>
+        </form>
+    </div>
+
+    <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#editTemplateArea',
+            plugins:'fullscreen pagebreak searchreplace table print',
+            height: '50vh',
+            toolbar_sticky: true,
+            autosave_restore_when_empty:true
+        });
+    </script>
+
+<%- include('partials/footer') -%>

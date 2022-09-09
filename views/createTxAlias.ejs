@@ -1,0 +1,117 @@
+<%- include('partials/header') -%>
+
+    <h1>Create Cover Letter for TX Alias</h1>
+    <h2>Instructions <i class="fa-solid fa-angle-down"></i></h2>
+    <div class="instructions hidden">
+      <p>Fill out the case and template information fields below, then click Create PDF. Some things to note:</p>
+      <ul>
+        <li>Trailing and preceding spaces in the court info field are okay. Data must be formatted as follows:<br>
+          Court Name<br>
+          12345 Main St<br>
+          City, State 12345</li>
+        <li>Servee addresses must be formatted as follows:<br>
+          12345 Main St<br>
+          City, State 12345</li>
+        <li>There is only space for two servees. If you need more than two aliases for a case you'll need to generate additional cover letters.</li>
+        <li>If sheriff or constable are selected for service type, you do not need to select doc return method or customer email.</li>
+        <li>If email is selected as the doc return method, then a customer email must be selected from the dropdown. Otherwise, customer email does not need to be selected.</li>
+        <li>You can click the reset button or refresh the page to clear the form fields, but you do not need to in order to generate another letter.</li>
+      </ul>
+    </div>
+
+    <div class="inputPreview" id="inputPreview2">
+      <div class="inputFields">
+        <fieldset class="txCourtCaseInfo">
+          <legend>Case Information</legend>
+          <fieldset>
+            <legend>Court Information</legend>
+            <label for="courtInfo">Court Info: </label>
+            <textarea name="courtInfo" id="courtInfo" placeholder="Court Name&#10;12345 Main St&#10;City, State 12345"></textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Case Identifiers</legend>
+            <label for="matterNumber">Matter Number: </label>
+            <input name="matterNumber" id="matterNumber">
+            
+            <label for="caseNum">Case Number: </label>
+            <input name="caseNum" id="caseNum">
+          </fieldset>
+
+          <fieldset>
+            <legend>Party Information</legend>
+            <label for="plaintiffName">Plaintiff Name(s): </label>
+            <input name="plaintiffName" id="plaintiffName" placeholder="Name1, Name2, etc.">
+            
+            <label for="defendantName">Defendant Name(s): </label>
+            <input name="defendantName" id="defendantName" placeholder="Name1, Name2, etc.">
+            
+            <label for="servee1Name">Servee 1 Name: </label>
+            <input name="servee1Name" id="servee1Name">
+            
+            <label for="servee1Address">Servee 1 Address: </label>
+            <textarea name="servee1Address" id="servee1Address" placeholder="12345 Main St&#10;City, State 12345"></textarea>
+      
+            <label for="servee2Name">Servee 2 Name: </label>
+            <input name="servee2Name" id="servee2Name">
+            
+            <label for="servee2Address">Servee 2 Address: </label>
+            <textarea name="servee2Address" id="servee2Address" placeholder="12345 Main St&#10;City, State 12345"></textarea>
+          </fieldset>
+
+        </fieldset>
+
+        <fieldset class="templateInfo">
+          <legend>Template Information</legend>
+          <fieldset class="txServiceDocReturn">
+            <legend>Service & Return Method</legend>
+            <label for="txServiceType">Service Type</label>
+            <select name="txServiceType" id="txServiceType">
+                <option value="">Choose an option</option>
+                <option value="private process server">Private Process Server</option>
+                <option value="sheriff">Sheriff</option>
+                <option value="constable">Constable</option>
+            </select>
+    
+            <label for="txDocReturnMethod">Doc Return Method</label>
+            <select name="txDocReturnMethod" id="txDocReturnMethod">
+                <option value="">Choose an option</option>
+                <option value="Mail to ABC Legal at 700 Highlander Blvd #200, Arlington, TX 76015">Mail to ABC</option>
+                <option value="Hold for pickup by local ABC courier">Hold for pickup</option>
+                <option value="Email to ">Email to </option>
+            </select>
+           
+            <label for="customerEmail">Customer Email</label>
+            <select name="customerEmail" id="customerEmail">
+                <option value="">Choose a customer</option>
+                <% for(let i=0; i<customerList.length; i++) { %>
+                  <option value="<%- customerList[i].nickname %>"><%= customerList[i].customerName %></option>
+                <% } %>
+            </select>
+          </fieldset>
+
+          <label for="txAliasTemplate">Template</label>
+          <select name="txAliasTemplate" id="txAliasTemplate">
+              <option value="">Choose an option</option>
+              <% for(let i=0; i<templateInfo.length; i++) { %>
+                <option value="<%- templateInfo[i].templateName %>"><%= templateInfo[i].templateName[0].toUpperCase() + templateInfo[i].templateName.slice(1) %></option>
+              <% } %>
+          </select>
+
+        </fieldset>
+        <div class="buttons">
+        <button id="create">Create PDF</button>
+        <span class="newTemplateButton" id="resetTxLetForm">Reset</span>
+        </div>
+
+      </div>
+      
+    <iframe id="pdfPreview" src=""></iframe>
+    </div>
+  </body>
+
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+  <script src="js/createTxAlias.js"></script>
+
+<%- include('partials/footer') -%>
