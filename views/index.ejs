@@ -1,12 +1,24 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbar') -%>
 
-    <h1>pdfAssist</h1>
+<section class="bg-light text-dark p-5 text-center text-sm-start">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div>
+                <h1>Generate Legal Documents</h1>
+                <p class="lead my-4">Quickly and easily generate summons documents that are ready for filing in FL and TX courts.</p>
+                <a class="btn btn-primary btn-lg" href="/signup">Sign Up to Get Started</a>
+            </div>
+            <img class="img-fluid w-25 p-4 d-none d-sm-block" src="/img/file-pdf-regular.svg" alt="pdf vector">
+        </div>
+    </div>
+</section>
+    
     <div>
         <a href="/login"> Login</a>
         <a href="/signup"> Signup</a>
     </div>
-    <div id="api-instructions">
+    <!-- <div id="api-instructions">
         <h2>API Instructions</h2>
         <p>Use https://legal-docs-generator.herokuapp.com/summons/countyName&tier to view a json file containing data for a summons template.</p>
         <p>Route parameters are:
@@ -16,10 +28,61 @@
             </ul>
             Example: <a href="https://legal-docs-generator.herokuapp.com/summons/alachua&cc">https://legal-docs-generator.herokuapp.com/summons/alachua&cc</a>
         </p>
-    </div>
+    </div> -->
     
+    <!-- Boxes -->
+    <section class="p-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <i class="bi bi-check2-circle"></i>
+                            </div>
+                            <h3 class="card-title mb-3">Step 1:<br>Select a template.</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <i class="bi bi-input-cursor-text"></i>
+                            </div>
+                            <h3 class="card-title mb-5">Step 2:<br>Fill out the form.</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <i class="bi bi-download"></i>
+                            </div>
+                            <h3 class="card-title mb-3">Step 3: Download your document.</h3>
+                            <!-- <p class="card-text">Download your document</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div>
+
+    </div>
+    <div>
+        <!-- <h2>Generate a batch of documents:</h2>
+        <ol>
+            <li>Upload an xlsx file containing case data and template selections.</li>
+            <li>Download the result.</li>
+            <li>Save the generated documents.</li>
+        </ol> -->
+    </div>
+
     <div id="available-templates">
-        <h2>Available FL Summons Templates</h2>
+        <h2>Available Summons Templates</h2>
         <ul class="templates">
         <% for(let i=0; i<flTemplates.length; i++) { %>
             <li class="available-templates">
