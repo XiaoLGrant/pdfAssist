@@ -13,11 +13,7 @@
         </div>
     </div>
 </section>
-    
-    <div>
-        <a href="/login"> Login</a>
-        <a href="/signup"> Signup</a>
-    </div>
+
     <!-- <div id="api-instructions">
         <h2>API Instructions</h2>
         <p>Use https://legal-docs-generator.herokuapp.com/summons/countyName&tier to view a json file containing data for a summons template.</p>
@@ -33,7 +29,7 @@
     <!-- Boxes -->
     <section class="p-5">
         <div class="container">
-            <div class="row text-center">
+            <div class="row text-center g-4">
                 <div class="col-md">
                     <div class="card bg-dark text-light">
                         <div class="card-body text-center">
@@ -50,7 +46,7 @@
                             <div class="h1 mb-3">
                                 <i class="bi bi-input-cursor-text"></i>
                             </div>
-                            <h3 class="card-title mb-5">Step 2:<br>Fill out the form.</h3>
+                            <h3 class="card-title mb-3">Step 2: Enter your case information.</h3>
                         </div>
                     </div>
                 </div>
@@ -61,7 +57,6 @@
                                 <i class="bi bi-download"></i>
                             </div>
                             <h3 class="card-title mb-3">Step 3: Download your document.</h3>
-                            <!-- <p class="card-text">Download your document</p> -->
                         </div>
                     </div>
                 </div>
@@ -69,38 +64,69 @@
         </div>
     </section>
 
-    <div>
+    <section id="flTemplates" class="p-5 bg-dark text-light">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md p-5">
+                    <h2>Available FL Templates</h2>
+                    <p class="lead">Templates for FL summonses, aliases, and pluries are available in the following counties:
+                        <ul class="templates">
+                            <% for(let i=0; i<flTemplates.length; i++) { %>
+                                <li class="available-templates">
+                                    <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
+                                    <% if (flTemplates[i].tier === 'sc') { %>
+                                        <span>Small Claims</span>
+                                    <% } else if (flTemplates[i].tier === 'cc') { %>
+                                        <span>County Civil</span>
+                                    <% } else if (flTemplates[i].tier === 'ca') { %>
+                                        <span>Circuit Civil</span>
+                                    <% } %>
+                                    <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </div>
-    <div>
-        <!-- <h2>Generate a batch of documents:</h2>
+    <section id="txTemplates" class="p-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md p-5">
+                    <h2>Available TX Templates</h2>
+                    <p class="lead">Templates for TX requests are available for the following documents:
+                        <ul class="templates">
+                            <% for(let i=0; i<flTemplates.length; i++) { %>
+                                <li class="available-templates">
+                                    <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
+                                    <% if (flTemplates[i].tier === 'sc') { %>
+                                        <span>Small Claims</span>
+                                    <% } else if (flTemplates[i].tier === 'cc') { %>
+                                        <span>County Civil</span>
+                                    <% } else if (flTemplates[i].tier === 'ca') { %>
+                                        <span>Circuit Civil</span>
+                                    <% } %>
+                                    <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <div>
+        <h2>Generate a batch of documents:</h2>
         <ol>
             <li>Upload an xlsx file containing case data and template selections.</li>
             <li>Download the result.</li>
             <li>Save the generated documents.</li>
-        </ol> -->
-    </div>
-
-    <div id="available-templates">
-        <h2>Available Summons Templates</h2>
-        <ul class="templates">
-        <% for(let i=0; i<flTemplates.length; i++) { %>
-            <li class="available-templates">
-                <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
-                <% if (flTemplates[i].tier === 'sc') { %>
-                    <span>Small Claims</span>
-                <% } else if (flTemplates[i].tier === 'cc') { %>
-                    <span>County Civil</span>
-                <% } else if (flTemplates[i].tier === 'ca') { %>
-                    <span>Circuit Civil</span>
-                <% } %>
-                <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
-            </li>
-        <% } %>
-        </ul>
-    </div>
+        </ol>
+    </div> -->
     
-    <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: '#editTemplateArea',
@@ -116,6 +142,6 @@
             toolbar_sticky: true,
             autosave_restore_when_empty:true
         });
-    </script>
+    </script> -->
 
 <%- include('partials/footer') -%>
