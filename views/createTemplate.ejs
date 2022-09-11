@@ -1,28 +1,124 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbarLoggedIn') -%>
 
-    <h1>FL Legal Docs Generator: Add A Template</h1>
+    <section class="p-5 bg-primary text-light">
+        <div class="container">
+            <h1>Add A Template</h1>
+        </div>
+    </section>
+    
+    <section class="p-5 bg-light">
+        <div class="container rounded-3 p-4 bg-body">
+            <h2>Add a TX Template</h2>
+            <form action="/templates/add/tx" enctype="multipart/form-data" method="POST">
+                <div class="row">
+                    <div class="col">
+                        <label for="templateName" class="form-label">Template Name</label>
+                        <input type="text" class="form-control" id="templateName" name="templateName">
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="stateName" class="form-label">State</label>
+                        <input class="form-control" id="stateName" name="state" maxlength="2" value="TX">
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <label for="txFileUpload" class="form-label">File</label>
+                        <input type="file" class="form-control" id="txFileUpload" name="file">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary my-3" value="Upload">Submit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
      
-    <div id="available-templates">
-        <h2>Available FL Summons Templates</h2>
-        <ul class="templates">
-        <% for(let i=0; i<flTemplates.length; i++) { %>
-            <li class="available-templates">
-                <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
-                <% if (flTemplates[i].tier === 'sc') { %>
-                    <span>Small Claims</span>
-                <% } else if (flTemplates[i].tier === 'cc') { %>
-                    <span>County Civil</span>
-                <% } else if (flTemplates[i].tier === 'ca') { %>
-                    <span>Circuit Civil</span>
+    <section class="p-2 bg-light">
+        <div class="container rounded-3 p-4 bg-body">
+            <h2>Add a FL Template</h2>
+            <form action="/templates/add/fl" enctype="multipart/form-data" method="POST">
+                <div class="row">
+                    <div class="col">
+                        <label for="templateType" class="form-label">Template Type</label>
+                        <input type="text" class="form-control" id="templateType" name="templateType" value="Summons">
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="stateName" class="form-label">State</label>
+                        <input class="form-control" id="stateName" name="state" maxlength="2" value="FL">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="countyName" class="form-label">County</label>
+                        <input class="form-control" id="countyName" name="county">
+                    </div>
+                    <div class="col">
+                        <label for="tier" class="form-label">Tier</label>
+                        <select class="form-select" aria-label="Select filing tier" id="tier" name="tier">
+                            <option selected>Select filing tier</option>
+                            <option value="sc">Small Claims</option>
+                            <option value="cc">County Civil</option>
+                            <option value="ca">Circuit Civil</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <label for="flFileUpload" class="form-label">File</label>
+                        <input type="file" class="form-control" id="flFileUpload" name="file">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary my-3" value="Upload">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="p-2 bg-light">
+        <div class="container rounded-3 p-4 bg-body">
+            <h2>Available Templates</h2>
+            <div>
+                <h3>FL</h3>
+                <ul class="templates">
+                <% for(let i=0; i<flTemplates.length; i++) { %>
+                    <li class="available-templates">
+                        <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
+                        <% if (flTemplates[i].tier === 'sc') { %>
+                            <span>Small Claims</span>
+                        <% } else if (flTemplates[i].tier === 'cc') { %>
+                            <span>County Civil</span>
+                        <% } else if (flTemplates[i].tier === 'ca') { %>
+                            <span>Circuit Civil</span>
+                        <% } %>
+                        <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
+                    </li>
                 <% } %>
-                <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
-            </li>
-        <% } %>
-        </ul>
+                </ul>
+            </div>
+            <div>
+                <h3>TX</h3>
+                <ul class="templates">
+                    <% txTemplates.forEach(template => { %>
+                        <li><%= template.templateType %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="available-templates">
+
     </div>
 
-    <form action="/addTemplate/createTemplate" method="POST" id="createTemplate">
+    <!-- <form action="/addTemplate/createTemplate" method="POST" id="createTemplate">
         <h2>Add A Template:</h2>
         <p>Use the form below to add a new summons template. Fill out the state abbreviation, county name, filing tier, and document text.</p>
         <p>
@@ -57,6 +153,6 @@
             toolbar_sticky: true,
             autosave_restore_when_empty:true
         });
-    </script>
+    </script> -->
 
 <%- include('partials/footer') -%>

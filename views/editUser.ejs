@@ -1,0 +1,56 @@
+<%- include('partials/header') -%>
+<%- include('partials/navbarLoggedIn') -%>
+    
+    <% if (locals.messages.errors) { %>
+        <% messages.errors.forEach( el => { %>
+            <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %>
+    <% } %>
+
+    <section class="p-5 text-center text-sm-start">
+        <div class="container">
+            <h1>Update Return Address</h1>
+            <form action="/user/<%= userInfo[0]._id %>" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="row">
+                    <div class="col">
+                        <label for="businessInput">Business Name</label>
+                        <input type="text" class="form-control" id="businessInput" name="businessName" value="<%= userInfo[0].businessName %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" name="address1" value="<%= userInfo[0].address1 %>">
+                    </div>
+                    <div class="col">
+                        <label for="inputAddress2">Address 2</label>
+                        <input type="text" class="form-control" id="inputAddress2" name="address2" value="<%= userInfo[0].address2 %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity" name="city" value="<%= userInfo[0].city %>">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputState">State</label>
+                        <input type="text" class="form-control" id="inputState" maxlength="2" name="state" value="<%= userInfo[0].state %>">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip" maxlength="5" name="zip" value="<%= userInfo[0].zip %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input class="btn btn-primary btn-sm my-2" type="submit">
+                        <a href="/dashboard" class="btn btn-secondary btn-sm my-2">Cancel</a>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </section>
+
+<%- include('partials/footer') -%>

@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbarLoggedIn') -%>
 
-    <h1>Create Cover Letter for TX Alias</h1>
+    <h1>TX Citation Request</h1>
     <h2>Instructions <i class="fa-solid fa-angle-down"></i></h2>
     <div class="instructions hidden">
       <p>Fill out the case and template information fields below, then click Create PDF. Some things to note:</p>
@@ -66,7 +66,7 @@
           <legend>Template Information</legend>
           <fieldset class="txServiceDocReturn">
             <legend>Service & Return Method</legend>
-            <label for="txServiceType">Service Type</label>
+            <label for="txServiceType">Service Method</label>
             <select name="txServiceType" id="txServiceType">
                 <option value="">Choose an option</option>
                 <option value="private process server">Private Process Server</option>
@@ -77,7 +77,7 @@
             <label for="txDocReturnMethod">Doc Return Method</label>
             <select name="txDocReturnMethod" id="txDocReturnMethod">
                 <option value="">Choose an option</option>
-                <option value="Mail to ABC Legal at 700 Highlander Blvd #200, Arlington, TX 76015">Mail to ABC</option>
+                <option value="Mail to ABC Legal at 700 Highlander Blvd #200, Arlington, TX 76015">Mail</option>
                 <option value="Hold for pickup by local ABC courier">Hold for pickup</option>
                 <option value="Email to ">Email to </option>
             </select>
@@ -94,8 +94,8 @@
           <label for="txAliasTemplate">Template</label>
           <select name="txAliasTemplate" id="txAliasTemplate">
               <option value="">Choose an option</option>
-              <% for(let i=0; i<templateInfo.length; i++) { %>
-                <option value="<%- templateInfo[i].templateName %>"><%= templateInfo[i].templateName[0].toUpperCase() + templateInfo[i].templateName.slice(1) %></option>
+              <% for(let i=0; i<templates.length; i++) { %>
+                <option value="<%- templates[i].templateType %>"><%= templates[i].templateType[0].toUpperCase() + templates[i].templateType.slice(1) %></option>
               <% } %>
           </select>
 

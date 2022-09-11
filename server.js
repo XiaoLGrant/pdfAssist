@@ -14,7 +14,8 @@ const cors = require('cors');
 // const ejs = require('ejs');
 const connectDB = require('./config/database')
 const homeRoutes = require('./routes/home')
-const createTemplateRoutes = require('./routes/createTemplate')
+// const createTemplateRoutes = require('./routes/createTemplate')
+const templateRoutes = require('./routes/templates')
 const editTemplateRoutes = require('./routes/editTemplate')
 const createFlAliasRoutes = require('./routes/createFLAlias')
 const createTxAliasRoutes = require('./routes/createTxAlias')
@@ -30,7 +31,13 @@ connectDB()
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
-app.use(methodOverride('_method'))
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    let method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
 app.use(express.json())
 app.use(logger('dev'))
 app.use(cors())
@@ -57,7 +64,8 @@ app.use(flash())
 
 app.use('/', homeRoutes)
 app.use('/todos', todoRoutes)
-app.use('/createTemplate', createTemplateRoutes)
+// app.use('/createTemplate', createTemplateRoutes)
+app.use('/templates', templateRoutes)
 app.use('/editTemplate', editTemplateRoutes)
 app.use('/createFlAlias', createFlAliasRoutes)
 app.use('/createTxAlias', createTxAliasRoutes)

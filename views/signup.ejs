@@ -1,17 +1,71 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbar') -%>
-
+    
     <% if (locals.messages.errors) { %>
         <% messages.errors.forEach( el => { %>
             <div class="alert alert-danger"><%= el.msg %></div>
         <% }) %>
     <% } %>
-    <form action="/signup" method="POST">
-        <input type="text" name="userName" placeholder="User Name">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="password" name="confirmPassword" placeholder="Confirm Password">
-        <input type="submit">
-    </form>
+
+    <section class="p-5 text-center text-sm-start">
+        <div class="container">
+            <h1>Sign Up</h1>
+            <form action="/signup" method="POST">
+                <div class="row">
+                    <div class="col">
+                        <label for="userNameInput">Name</label>
+                        <input type="text" class="form-control" id="userNameInput" name="userName">
+                    </div>
+                    <div class="col">
+                        <label for="emailInput">Email</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="example@email.com" name="email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="passwordInput">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="confirmPasswordInput">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Password" name="confirmPassword">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="businessInput">Business Name</label>
+                        <input type="text" class="form-control" id="businessInput" name="businessName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1" aria-describedby="addressHelp">
+                        <small id="addressHelp" class="form-text text-muted">An address is needed in order to add a return address to our TX citation request templates. We'll never share your information.</small>
+                    </div>
+                    <div class="col">
+                        <label for="inputAddress2">Address 2</label>
+                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity" name="city">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputState">State</label>
+                        <input type="text" class="form-control" id="inputState" maxlength="2" name="state">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip" maxlength="5" name="zip">
+                    </div>
+    
+                </div>
+                <input class="btn btn-primary btn-sm my-2" type="submit">
+            </form>
+        </div>
+    </section>
 
 <%- include('partials/footer') -%>

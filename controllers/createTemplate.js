@@ -1,4 +1,6 @@
+const cloudinary = require("../middleware/cloudinary");
 const FLTemplates = require('../models/FLTemplates')
+const TXTemplates = require('../models/TXTemplates')
 const Customers = require('../models/Customers')
 
 module.exports = {
@@ -8,33 +10,29 @@ module.exports = {
                 countyName: 1,
                 tierName: 1
             })
-            res.render('createTemplate.ejs', {flTemplates: flTemplates})
-        }catch(err){
-            console.log(err)
-        }
-    },
-    createTemplate: async (req, res)=>{
-        try{
-            await FLTemplates.create({
-                stateName: req.body.stateName, 
-                countyName: req.body.countyName, 
-                docText: req.body.docText, 
-                tier: req.body.filingTier})
-            console.log('Template added')
-            res.redirect('/createTemplate')
-        }catch(err){
-            console.log(err)
-        }
-    },
-    createCustomerContact: async (req, res)=>{
-        try{
-            await Customers.create({
-                customerName: req.body.customerName, 
-                nickname: req.body.customerNickname, 
-                email: req.body.customerEmail
+            const txTemplates = await TXTemplates.find().sort({
+                templateType: 1
             })
-            console.log('Customer contact added')
-            res.redirect('/createTemplate')
+            res.render('createTemplate.ejs', {flTemplates: flTemplates, txTemplates: txTemplates})
+        }catch(err){
+            console.log(err)
+        }
+    },
+    uploadTxTemplate: async (req, res)=>{
+        try{
+            const result = await cloudinary.uploader.upload(req.file.path)
+
+            await TXTemplates.create({
+                templateType: req.body.templateName, 
+                stateName: req.body.state, 
+                cloudinaryId: result.public_id, 
+                file: result.secure_url,
+                deleted: false,
+                user: req.user.id,
+                createdOn: new Date().toLocaleDateString()
+            })
+            console.log('Tx Template has been added')
+            res.redirect('/templates/add')
         }catch(err){
             console.log(err)
         }

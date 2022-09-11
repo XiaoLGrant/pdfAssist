@@ -1,7 +1,6 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbar') -%>
 
-    <h1>pdfAssist</h1>
     <% if (locals.messages.errors) { %>
         <% messages.errors.forEach( el => { %>
             <div class="alert alert-danger"><%= el.msg %></div>
@@ -12,10 +11,27 @@
             <div class="alert alert-danger"><%= el.msg %></div>
         <% }) %>
     <% } %>
-    <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit">
-    </form>
+
+    <section class="p-5 text-center text-sm-start">
+        <div class="container">
+            <h1>Login</h1>
+            <form action="/login" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="emailInput">Email</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="example@email.com" name="email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="passwordInput">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password">
+                    </div>
+                </div>
+                <input class="btn btn-primary btn-sm my-2" type="submit">
+            </form>
+        </div>
+
+    </section>
 
 <%- include('partials/footer') -%>
