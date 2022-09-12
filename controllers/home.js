@@ -81,7 +81,7 @@ module.exports = {
     deleteCustomer: async (req, res) => {
         console.log(req.body.customerIdFromJSFile)
         try {
-            await Customers.findOneAndDelete({_id: req.body.customerIdFromJSFile})
+            await Customers.remove({_id: req.body.customerIdFromJSFile})
             console.log('Customer deleted')
             res.redirect('/dashboard')
         } catch(err) {

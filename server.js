@@ -14,7 +14,6 @@ const cors = require('cors');
 // const ejs = require('ejs');
 const connectDB = require('./config/database')
 const homeRoutes = require('./routes/home')
-// const createTemplateRoutes = require('./routes/createTemplate')
 const templateRoutes = require('./routes/templates')
 const editTemplateRoutes = require('./routes/editTemplate')
 const createFlAliasRoutes = require('./routes/createFLAlias')
@@ -64,7 +63,6 @@ app.use(flash())
 
 app.use('/', homeRoutes)
 app.use('/todos', todoRoutes)
-// app.use('/createTemplate', createTemplateRoutes)
 app.use('/templates', templateRoutes)
 app.use('/editTemplate', editTemplateRoutes)
 app.use('/createFlAlias', createFlAliasRoutes)

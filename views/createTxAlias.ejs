@@ -27,7 +27,7 @@
           <fieldset>
             <legend>Court Information</legend>
             <label for="courtInfo">Court Info: </label>
-            <textarea name="courtInfo" id="courtInfo" placeholder="Court Name&#10;12345 Main St&#10;City, State 12345"></textarea>
+            <textarea name="courtInfo" id="courtInfo" placeholder="TX Precinct 2 Place 2 Justice Court for Cameron County&#10;12345 Main St&#10;City, State 12345"></textarea>
           </fieldset>
 
           <fieldset>
@@ -95,7 +95,8 @@
           <select name="txAliasTemplate" id="txAliasTemplate">
               <option value="">Choose an option</option>
               <% for(let i=0; i<templates.length; i++) { %>
-                <option value="<%- templates[i].templateType %>"><%= templates[i].templateType[0].toUpperCase() + templates[i].templateType.slice(1) %></option>
+                <!-- <option value="<%- templates[i].templateType %>"><%= templates[i].templateType[0].toUpperCase() + templates[i].templateType.slice(1) %></option> -->
+                <option value="<%= templates[i].file %>"><%= templates[i].templateType %></option>
               <% } %>
           </select>
 

@@ -15,13 +15,14 @@ Array.from(deleteBtn).forEach((el)=>{
 // })
 
 async function deleteCustomer(){
-    const customerId = this.parentNode.dataset.id
+    const dataId = this.parentNode.dataset.id
+    
     try{
-        const response = await fetch('/customer/delete', {
+        const response = await fetch(`/customer/delete`, {
             method: 'delete',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                'customerIdFromJSFile': customerId
+                'customerIdFromJSFile': dataId
             })
         })
         const data = await response.json()

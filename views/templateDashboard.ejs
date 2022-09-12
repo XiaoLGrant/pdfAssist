@@ -1,0 +1,169 @@
+<%- include('partials/header') -%>
+<%- include('partials/navbarLoggedIn') -%>
+
+    <section class="p-5 bg-primary text-light">
+        <div class="container">
+            <h1>Manage Templates</h1>
+        </div>
+    </section>
+    
+    <section class="p-5 bg-light">
+        <div class="container rounded-3 p-4 bg-body">
+            <h2>Texas</h2>
+            <div>
+                <h3>Add Template</h3>
+                <form action="/templates/add/tx" enctype="multipart/form-data" method="POST">
+                    <div class="row">
+                        <div class="col">
+                            <label for="templateName" class="form-label">Template Name</label>
+                            <input type="text" class="form-control" id="templateName" name="templateName">
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="stateName" class="form-label">State</label>
+                            <input class="form-control" id="stateName" name="state" maxlength="2" value="TX">
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <label for="txFileUpload" class="form-label">File</label>
+                            <input type="file" class="form-control" id="txFileUpload" name="file">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary my-3" value="Upload">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <h3>Available Templates</h3>
+                <ul class="templates">
+                    <% txTemplates.forEach(template => { %>
+                        <li data-id="<%=template._id%>">
+                            <span><%= template.templateType %></span>
+                            <a href="/templates/<%= template._id %>"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <form action="/templates/delete/tx/<%= template._id %>" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                            </form>
+                            <!-- <span class="del"><i class="fa-regular fa-trash-can"></i></span> -->
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </section>
+     
+    <section class="p-2 bg-light">
+        <div class="container rounded-3 p-4 bg-body">
+            <h2>Florida</h2>
+            <div>
+                <h3>Add Template</h3>
+                <form action="/templates/add/fl" enctype="multipart/form-data" method="POST">
+                    <div class="row">
+                        <div class="col">
+                            <label for="templateType" class="form-label">Template Type</label>
+                            <input type="text" class="form-control" id="templateType" name="templateType" value="Summons">
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="stateName" class="form-label">State</label>
+                            <input class="form-control" id="stateName" name="state" maxlength="2" value="FL">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="countyName" class="form-label">County</label>
+                            <input class="form-control" id="countyName" name="county">
+                        </div>
+                        <div class="col">
+                            <label for="tier" class="form-label">Tier</label>
+                            <select class="form-select" aria-label="Select filing tier" id="tier" name="tier">
+                                <option selected>Select filing tier</option>
+                                <option value="sc">Small Claims</option>
+                                <option value="cc">County Civil</option>
+                                <option value="ca">Circuit Civil</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <label for="flFileUpload" class="form-label">File</label>
+                            <input type="file" class="form-control" id="flFileUpload" name="file">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary my-3" value="Upload">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <h3>Available Templates</h3>
+                <ul class="templates">
+                    <% flTemplates.forEach(template => { %>
+                        <li class="available-templates" data-id="<%=template._id%>">
+                            <span><%= template.countyName[0].toUpperCase() + template.countyName.slice(1) %></span>
+                            <% if (template.tier === 'sc') { %>
+                                <span>Small Claims</span>
+                            <% } else if (template.tier === 'cc') { %>
+                                <span>County Civil</span>
+                            <% } else if (template.tier === 'ca') { %>
+                                <span>Circuit Civil</span>
+                            <% } %>
+                            <span><%= template.templateType %></span>
+                            <a href="/customer/<%= flTemplates._id %>"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <form action="/templates/delete/fl/<%= template._id %>" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                            </form>
+                        </li>
+                    <% }) %>
+                    </ul>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- <form action="/addTemplate/createTemplate" method="POST" id="createTemplate">
+        <h2>Add A Template:</h2>
+        <p>Use the form below to add a new summons template. Fill out the state abbreviation, county name, filing tier, and document text.</p>
+        <p>
+            <label for="addState"><span>State: </span></label>
+            <input type="text" placeholder="State Abbreviation" name="stateName" maxLength="2" id="addState">
+        </p>
+        <p>
+            <label for="addCounty"><span>County: </span></label>
+            <input type="text" placeholder="County" name="countyName" id="addCounty">
+        </p>
+        <p>
+            <label for="addTier"><span>Filing Tier: </span></label>
+            <select name="filingTier" id="addTierSelect">
+                <option value="sc">Small Claims</option>
+                <option value="cc">County Civil</option>
+                <option value="ca">Circuit Civil</option>
+            </select>
+        </p>
+        <p>
+            <label for="addTemplateArea"><span>Document Text: </span></label>
+            <textarea id="addTemplateArea" placeholder="Paste document text here." name="docText"></textarea>
+        </p>
+        <input type="submit">
+    </form>
+  
+    <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#addTemplateArea',
+            plugins:'fullscreen pagebreak searchreplace table print',
+            height: '50vh',
+            toolbar_sticky: true,
+            autosave_restore_when_empty:true
+        });
+    </script> -->
+
+<%- include('partials/footer') -%>
