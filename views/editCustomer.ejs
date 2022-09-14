@@ -10,7 +10,7 @@
     <section class="p-5 text-center text-sm-start">
         <div class="container">
             <h1>Update Customer</h1>
-            <form action="/customer/<%= customerInfo[0]._id %>" method="POST">
+            <form action="/customer/<%= customerInfo[0]._id %>?_method=PUT" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="row">
                     <div class="col-md-6">

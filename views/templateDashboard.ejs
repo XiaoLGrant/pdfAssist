@@ -43,12 +43,10 @@
                     <% txTemplates.forEach(template => { %>
                         <li data-id="<%=template._id%>">
                             <span><%= template.templateType %></span>
-                            <a href="/templates/<%= template._id %>"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <form action="/templates/delete/tx/<%= template._id %>" method="POST">
-                                <input type="hidden" name="_method" value="DELETE">
+                            <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <form action="/templates/delete/tx/<%= template._id %>?_method=DELETE" method="POST">
                                 <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
                             </form>
-                            <!-- <span class="del"><i class="fa-regular fa-trash-can"></i></span> -->
                         </li>
                     <% }) %>
                 </ul>
@@ -115,9 +113,8 @@
                                 <span>Circuit Civil</span>
                             <% } %>
                             <span><%= template.templateType %></span>
-                            <a href="/customer/<%= flTemplates._id %>"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <form action="/templates/delete/fl/<%= template._id %>" method="POST">
-                                <input type="hidden" name="_method" value="DELETE">
+                            <a href="/templates/update/fl/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <form action="/templates/delete/fl/<%= template._id %>?_method=DELETE" method="POST">
                                 <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
                             </form>
                         </li>

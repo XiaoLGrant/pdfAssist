@@ -1,0 +1,38 @@
+<%- include('partials/header') -%>
+<%- include('partials/navbarLoggedIn') -%>
+
+<section class="p-5 bg-primary text-light">
+    <div class="container">
+        <h1>Edit TX <%= txTemplate.templateType %> Template</h1>
+    </div>
+</section>
+
+<section class="p-5 bg-light">
+    <div class="container rounded-3 p-4 bg-body">
+        <form action="/templates/update/tx/<%= txTemplate._id %>?_method=PUT" enctype="multipart/form-data" method="POST">
+            <div class="row">
+                <div class="col-md">
+                    <label for="templateName" class="form-label">Template Name</label>
+                    <input type="text" class="form-control" id="templateName" name="templateName">
+                </div>
+                <div class="col-sm-2">
+                    <label for="stateName" class="form-label">State</label>
+                    <input class="form-control" id="stateName" name="state" maxlength="2" value="TX">
+                </div>
+            <div class="row">
+                <div class="col">
+                    <label for="txFileUpload" class="form-label">File</label>
+                    <input type="file" class="form-control" id="txFileUpload" name="file">
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary my-3" value="Upload">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<%- include('partials/footer') -%>
