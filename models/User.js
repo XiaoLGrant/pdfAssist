@@ -6,11 +6,13 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   businessName: { type: String },
-  address1: { type: String},
-  address2: { type: String},
-  city: { type: String},
-  state: { type: String},
-  zip: { type: String}
+  address1: { type: String },
+  address2: { type: String },
+  city: { type: String },
+  state: { type: String },
+  zip: { type: String },
+  phone: { type: String },
+  returnAddress2: { type: String }
 })
 
 

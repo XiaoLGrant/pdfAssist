@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const addTemplateController = require('../controllers/createTxAlias')
+const txTemplateController = require('../controllers/createTxAlias')
 
-router.get('/', addTemplateController.getCreateTxAlias)
+router.get('/', txTemplateController.getCreateTxAlias)
 
-// router.post('/createTemplate', addTemplateController.createTemplate)
+//router.post('/createTemplate', txTemplateController.createTxAlias)
 
 // router.put('/markComplete', addTemplateController.createCustomerContact)
 

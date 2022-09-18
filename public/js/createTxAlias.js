@@ -19,6 +19,9 @@ async function fillForm() {
   const docReturnType = form.getTextField('docReturnType')
   const matterNum = form.getTextField('matterNumber')
   const generatedDate = form.getTextField('generateDate')
+  const returnAddress1 = form.getTextField('returnAdd1')
+  const returnAddress2 = form.getTextField('returnAdd2')
+  const signature = form.getTextField('userName')
 
   //Fill out the form fields
   caseNumField.setText(getCaseNum())
@@ -31,8 +34,11 @@ async function fillForm() {
   docReturnType.setText(await getDocReturnMethod())
   matterNum.setText(`Matter Number: ${getMatterNum()}`)
   generatedDate.setText(`Generated: ${getDate()}`)
+  returnAddress1.setText(`${getFormValue('#retAdd1').split('**').map(str => str.trim()).join('\n')}`)
+  returnAddress2.setText(`${getFormValue('#retAdd2').split('**').map(str => str.trim()).join('\n')}`)
+  signature.setText(`${getFormValue('#signature')}`)
 
-  form.flatten()
+  // form.flatten()
 
   //Convert pdf to format viewable in an iframe and display in iframe
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
@@ -121,13 +127,13 @@ function getServiceType() {
 async function getDocReturnMethod() {
   const serviceType = getFormValue('#txServiceType')
   const returnMethod = getFormValue('#txDocReturnMethod')
-  const nickname = getFormValue('#customerEmail')
+  const id = getFormValue('#customerEmail')
   let email = ""
   try {
-    if (nickname !== "") {
-      const res = await fetch(`/customer/${nickname}`)
+    if (id !== "") {
+      const res = await fetch(`/customer/email/${id}`)
       const data = await res.json()
-      email = data.email
+      email = data[0].email
     }
     if (serviceType === 'sheriff' || serviceType === 'constable') {
       return `Dispatch all documents to the ${serviceType} for service`

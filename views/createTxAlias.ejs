@@ -29,6 +29,20 @@
                 </div>
             </section>
 
+            <section hidden>
+                <input type="hidden" id="signature" value="<%= user[0].businessName %>">
+                <textarea id="retAdd1">
+                    <%= user[0].businessName.toUpperCase() %>**Address: <%= user[0].address1 %>, <%= user[0].address2 %> <%= user[0].city %>, <%= user[0].state %> <%= user[0].zip %>**<% if(user[0].phone !== '') {%>Phone: <%= user[0].phone %><% } %>
+                </textarea>
+                <% if(user[0].returnAddress2 !== '') {%>
+                    <textarea id="retAdd2">
+                        <% user[0].returnAddress2.split('\n').forEach(line => { %>
+                            <%= line %>**
+                        <% }) %>
+                    </textarea>
+                <% } %>
+            </section>
+
             <section class="txLetterForm">
                 <div class="row">
                     <div class="col-3 inputPreview border" id="inputPreview2">
@@ -38,31 +52,31 @@
                                 <fieldset>
                                     <legend>Court Information</legend>
                                     <label for="courtInfo">Court Info: </label>
-                                    <textarea class="form-control" name="courtInfo" id="courtInfo" placeholder="TX Precinct 2 Place 2 Justice Court for Cameron County&#10;12345 Main St&#10;City, State 12345"></textarea>
+                                    <textarea class="form-control" name="courtInfo" id="courtInfo" placeholder="TX Precinct 2 Place 2 Justice Court for Cameron County&#10;12345 Main St&#10;City, State 12345">TX Precinct 2 Place 2 Justice Court for Cameron County&#10;12345 Main St&#10;City, State 12345</textarea>
                                 </fieldset>
     
                                 <fieldset>
                                     <legend>Case Identifiers</legend>
                                     <label for="matterNumber">Matter Number: </label>
-                                    <input class="form-control" name="matterNumber" id="matterNumber">
+                                    <input class="form-control" name="matterNumber" id="matterNumber" value="123456789">
                                     
                                     <label for="caseNum">Case Number: </label>
-                                    <input class="form-control" name="caseNum" id="caseNum">
+                                    <input class="form-control" name="caseNum" id="caseNum" value="22SC123456">
                                 </fieldset>
                 
                                 <fieldset>
                                     <legend>Party Information</legend>
                                     <label for="plaintiffName">Plaintiff Name(s): </label>
-                                    <input class="form-control" name="plaintiffName" id="plaintiffName" placeholder="Name1, Name2, etc.">
+                                    <input class="form-control" name="plaintiffName" id="plaintiffName" placeholder="Name1, Name2, etc." value="Doggerson LLC">
                                     
                                     <label for="defendantName">Defendant Name(s): </label>
-                                    <input class="form-control" name="defendantName" id="defendantName" placeholder="Name1, Name2, etc.">
+                                    <input class="form-control" name="defendantName" id="defendantName" placeholder="Name1, Name2, etc." value="Cat Llama">
                                     
                                     <label for="servee1Name">Servee 1 Name: </label>
-                                    <input class="form-control" name="servee1Name" id="servee1Name">
+                                    <input class="form-control" name="servee1Name" id="servee1Name" value="Cat Llama">
                                     
                                     <label for="servee1Address">Servee 1 Address: </label>
-                                    <textarea class="form-control" name="servee1Address" id="servee1Address" placeholder="12345 Main St&#10;City, State 12345"></textarea>
+                                    <textarea class="form-control" name="servee1Address" id="servee1Address" placeholder="12345 Main St&#10;City, State 12345">12345 Main St&#10;City, State 12345</textarea>
                         
                                     <label for="servee2Name">Servee 2 Name: </label>
                                     <input class="form-control" name="servee2Name" id="servee2Name">
@@ -82,7 +96,7 @@
                                         <option value="private process server">Private Process Server</option>
                                         <option value="sheriff">Sheriff</option>
                                         <option value="constable">Constable</option>
-                                </select>
+                                    </select>
                     
                                     <label for="txDocReturnMethod">Doc Return Method</label>
                                     <select class="form-select" name="txDocReturnMethod" id="txDocReturnMethod" aria-label="Select document return method">
@@ -108,6 +122,8 @@
                                         <option value="<%= template.file %>"><%= template.templateType %></option>
                                     <% }) %>
                                 </select>
+
+                                <input type="hidden" name="generateDate">
                             </fieldset>
 
                             <div class="row">

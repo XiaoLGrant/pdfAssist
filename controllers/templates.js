@@ -41,6 +41,38 @@ module.exports = {
             console.log(err);
         }
     },
+    viewUpdateFlTemplate: async (req,res)=>{
+        try{
+            const template = await FLTemplates.findById({ _id: req.params.id });
+            console.log(template)
+            res.render('editFlTemplate.ejs', {flTemplate: template});
+        }catch(err){
+            console.log(err);
+        }
+    },
+    updateFlTemplate: async (req, res)=>{
+        try{
+            const template = await FLTemplates.findById({ _id: req.params.id });
+            await cloudinary.uploader.destroy(template.cloudinaryId);
+            const result = await cloudinary.uploader.upload(req.file.path);
+            await FLTemplates.findOneAndUpdate({_id: req.params.id},
+                {
+                templateType: req.body.templateName, 
+                stateName: req.body.stateName,
+                countyName: req.body.county,
+                tier: req.body.tier,
+                cloudinaryId: result.public_id, 
+                file: result.secure_url,
+                deleted: false,
+                user: req.user.id,
+                createdOn: new Date().toLocaleDateString()
+            });
+            console.log('FL template has been updated');
+            res.redirect('/templates');
+        }catch(err){
+            console.log(err);
+        }
+    },
     deleteFlTemplate: async (req, res) => {
         try {
             const template = await FLTemplates.findById({ _id: req.params.id });
@@ -68,6 +100,36 @@ module.exports = {
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('Tx Template has been added');
+            res.redirect('/templates');
+        }catch(err){
+            console.log(err);
+        }
+    },
+    viewUpdateTxTemplate: async (req,res)=>{
+        try{
+            const template = await TXTemplates.findById({ _id: req.params.id });
+            console.log(template)
+            res.render('editTxTemplate.ejs', {txTemplate: template});
+        }catch(err){
+            console.log(err);
+        }
+    },
+    updateTxTemplate: async (req, res)=>{
+        try{
+            const template = await TXTemplates.findById({ _id: req.params.id });
+            await cloudinary.uploader.destroy(template.cloudinaryId);
+            const result = await cloudinary.uploader.upload(req.file.path);
+            await TXTemplates.findOneAndUpdate({_id: req.params.id},
+                {
+                templateType: req.body.templateName, 
+                stateName: req.body.stateName, 
+                cloudinaryId: result.public_id, 
+                file: result.secure_url,
+                deleted: false,
+                user: req.user.id,
+                createdOn: new Date().toLocaleDateString()
+            });
+            console.log('TX template has been updated');
             res.redirect('/templates');
         }catch(err){
             console.log(err);

@@ -13,11 +13,11 @@
             <div class="row">
                 <div class="col-md">
                     <label for="templateName" class="form-label">Template Name</label>
-                    <input type="text" class="form-control" id="templateName" name="templateName">
+                    <input type="text" class="form-control" id="templateName" name="templateName" value="<%= txTemplate.templateType %>">
                 </div>
                 <div class="col-sm-2">
                     <label for="stateName" class="form-label">State</label>
-                    <input class="form-control" id="stateName" name="state" maxlength="2" value="TX">
+                    <input class="form-control" id="stateName" name="state" maxlength="2" value="TX" readonly>
                 </div>
             <div class="row">
                 <div class="col">
@@ -29,6 +29,7 @@
             <div class="row">
                 <div class="col">
                     <button type="submit" class="btn btn-primary my-3" value="Upload">Submit</button>
+                    <a href="/templates" class="btn btn-secondary my-3"><span>Cancel</span></a>
                 </div>
             </div>
         </form>

@@ -17,6 +17,10 @@
                         <label for="businessInput">Business Name</label>
                         <input type="text" class="form-control" id="businessInput" name="businessName" value="<%= userInfo[0].businessName %>">
                     </div>
+                    <div class="col">
+                        <label for="phoneInput">Phone Number</label>
+                        <input type="tel" class="form-control" id="phoneInput" name="phoneNumber" value="<%= userInfo[0].phone %>">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -40,6 +44,12 @@
                     <div class="col-md-4">
                         <label for="inputZip">Zip</label>
                         <input type="text" class="form-control" id="inputZip" maxlength="5" name="zip" value="<%= userInfo[0].zip %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="returnAddress2Input">Additional Return Address Info</label>
+                        <textarea type="text" class="form-control" id="returnAddress2Input" name="returnAddress2"><%= userInfo[0].returnAddress2 %></textarea>
                     </div>
                 </div>
                 <div class="row">

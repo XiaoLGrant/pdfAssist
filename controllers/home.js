@@ -39,7 +39,9 @@ module.exports = {
                 address2: req.body.address2,
                 city: req.body.city,
                 state: req.body.state,
-                zip: req.body.zip
+                zip: req.body.zip,
+                phone: req.body.phoneNumber,
+                returnAddress2: req.body.returnAddress2
             })
             console.log('User return address updated')
             res.redirect('/dashboard')
@@ -93,6 +95,14 @@ module.exports = {
             await Customers.create({customerName: req.body.customerName, email: req.body.customerEmail, userID: req.user.id})
             console.log('Customer has been added.')
             res.redirect('/dashboard')
+        } catch(err) {
+            console.log(err)
+        }
+    },
+    getCustomerEmail: async (req, res) => {
+        try {
+            const customer = await Customers.find({_id: req.params.id})
+            res.json(customer)
         } catch(err) {
             console.log(err)
         }

@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-sm-2">
                             <label for="stateName" class="form-label">State</label>
-                            <input class="form-control" id="stateName" name="state" maxlength="2" value="TX">
+                            <input class="form-control" id="stateName" name="state" maxlength="2" value="TX" readonly>
                         </div>
                     </div>
                     <div class="row my-3">
@@ -39,17 +39,23 @@
 
             <div>
                 <h3>Available Templates</h3>
-                <ul class="templates">
-                    <% txTemplates.forEach(template => { %>
-                        <li data-id="<%=template._id%>">
-                            <span><%= template.templateType %></span>
-                            <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <form action="/templates/delete/tx/<%= template._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
-                            </form>
-                        </li>
-                    <% }) %>
-                </ul>
+                <table class="table">
+                    <tbody>
+                        <% txTemplates.forEach(template => { %>
+                            <tr data-id="<%=template._id%>">
+                                <td>
+                                    <span><%= template.templateType %></span>
+                                </td>
+                                <td>
+                                    <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <form class="d-inline-block" action="/templates/delete/tx/<%= template._id %>?_method=DELETE" method="POST">
+                                        <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -63,11 +69,11 @@
                     <div class="row">
                         <div class="col">
                             <label for="templateType" class="form-label">Template Type</label>
-                            <input type="text" class="form-control" id="templateType" name="templateType" value="Summons">
+                            <input type="text" class="form-control" id="templateType" name="templateType" value="Summons" readonly>
                         </div>
                         <div class="col-sm-2">
                             <label for="stateName" class="form-label">State</label>
-                            <input class="form-control" id="stateName" name="state" maxlength="2" value="FL">
+                            <input class="form-control" id="stateName" name="state" maxlength="2" value="FL" readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -101,27 +107,32 @@
 
             <div>
                 <h3>Available Templates</h3>
-                <ul class="templates">
-                    <% flTemplates.forEach(template => { %>
-                        <li class="available-templates" data-id="<%=template._id%>">
-                            <span><%= template.countyName[0].toUpperCase() + template.countyName.slice(1) %></span>
-                            <% if (template.tier === 'sc') { %>
-                                <span>Small Claims</span>
-                            <% } else if (template.tier === 'cc') { %>
-                                <span>County Civil</span>
-                            <% } else if (template.tier === 'ca') { %>
-                                <span>Circuit Civil</span>
-                            <% } %>
-                            <span><%= template.templateType %></span>
-                            <a href="/templates/update/fl/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <form action="/templates/delete/fl/<%= template._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
-                            </form>
-                        </li>
-                    <% }) %>
-                    </ul>
+                <table class="table">
+                    <tbody>
+                        <% flTemplates.forEach(template => { %>
+                            <tr class="available-templates" data-id="<%=template._id%>">
+                                <td>
+                                    <span><%= template.countyName[0].toUpperCase() + template.countyName.slice(1) %></span>
+                                    <% if (template.tier === 'sc') { %>
+                                        <span>Small Claims</span>
+                                    <% } else if (template.tier === 'cc') { %>
+                                        <span>County Civil</span>
+                                    <% } else if (template.tier === 'ca') { %>
+                                        <span>Circuit Civil</span>
+                                    <% } %>
+                                    <span><%= template.templateType %></span>
+                                </td>
+                                <td>
+                                    <a href="/templates/update/fl/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <form class="d-inline-block" action="/templates/delete/fl/<%= template._id %>?_method=DELETE" method="POST">
+                                        <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
             </div>
-
         </div>
     </section>
 

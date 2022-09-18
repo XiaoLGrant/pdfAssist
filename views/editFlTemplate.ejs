@@ -13,25 +13,37 @@
             <div class="row">
                 <div class="col">
                     <label for="templateType" class="form-label">Template Type</label>
-                    <input type="text" class="form-control" id="templateType" name="templateType" value="Summons">
+                    <input type="text" class="form-control" id="templateType" name="templateType" value="Summons" readonly>
                 </div>
                 <div class="col-sm-2">
                     <label for="stateName" class="form-label">State</label>
-                    <input class="form-control" id="stateName" name="state" maxlength="2" value="FL">
+                    <input class="form-control" id="stateName" name="state" maxlength="2" value="FL" readonly>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <label for="countyName" class="form-label">County</label>
-                    <input class="form-control" id="countyName" name="county">
+                    <input class="form-control" id="countyName" name="county" value="<%= flTemplate.countyName %>">
                 </div>
                 <div class="col">
                     <label for="tier" class="form-label">Tier</label>
                     <select class="form-select" aria-label="Select filing tier" id="tier" name="tier">
-                        <option selected>Select filing tier</option>
-                        <option value="sc">Small Claims</option>
-                        <option value="cc">County Civil</option>
-                        <option value="ca">Circuit Civil</option>
+                        <option>Select filing tier</option>
+                        <option 
+                            <% if (flTemplate.tier === 'sc') { %> 
+                                selected 
+                            <% } %>
+                        value="sc">Small Claims</option>
+                        <option value="cc"
+                            <% if (flTemplate.tier === 'cc') { %> 
+                                selected 
+                            <% } %>
+                        >County Civil</option>
+                        <option value="ca"
+                            <% if (flTemplate.tier === 'ca') { %> 
+                                selected 
+                            <% } %>
+                        >Circuit Civil</option>
                     </select>
                 </div>
             </div>
@@ -44,6 +56,7 @@
             <div class="row">
                 <div class="col">
                     <button type="submit" class="btn btn-primary my-3" value="Upload">Submit</button>
+                    <a href="/templates" class="btn btn-secondary my-3"><span>Cancel</span></a>
                 </div>
             </div>
         </form>
