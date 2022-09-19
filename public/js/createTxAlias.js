@@ -29,7 +29,6 @@ async function fillForm() {
   caseInfo.setText(`${getPlaintiff()} vs. ${getDefendant()}; ${getCourt()}`)
   servee1AddField.setText(getServee1Info())
   servee2AddField.setText(getServee2Info())
-  caseNumField.setText(getCaseNum())
   serviceType.setText(`Please issue a separate Citation for each defendant for service by a ${getServiceType()}.`)
   docReturnType.setText(await getDocReturnMethod())
   matterNum.setText(`Matter Number: ${getMatterNum()}`)
