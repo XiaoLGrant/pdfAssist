@@ -71,8 +71,14 @@ module.exports = {
     updateCustomer: async (req, res) => {
         try {
             await Customers.findOneAndUpdate({_id: req.params.id}, {
-                customerName: req.body.customerName,
-                email: req.body.customerEmail
+                customerName: req.body.customerName, 
+                email: req.body.customerEmail, 
+                address1: req.body.address1, 
+                address2: req.body.address2, 
+                city: req.body.city, 
+                state: req.body.state, 
+                zip: req.body.zip, 
+                userID: req.user.id
             })
             console.log('Customer updated')
             res.redirect('/dashboard')
@@ -81,9 +87,8 @@ module.exports = {
         }
     },
     deleteCustomer: async (req, res) => {
-        console.log(req.body.customerIdFromJSFile)
         try {
-            await Customers.remove({_id: req.body.customerIdFromJSFile})
+            await Customers.remove({_id: req.params.id})
             console.log('Customer deleted')
             res.redirect('/dashboard')
         } catch(err) {
@@ -92,7 +97,15 @@ module.exports = {
     },
     addCustomer: async (req, res) => {
         try {
-            await Customers.create({customerName: req.body.customerName, email: req.body.customerEmail, userID: req.user.id})
+            await Customers.create({
+                customerName: req.body.customerName, 
+                email: req.body.customerEmail, 
+                address1: req.body.address1, 
+                address2: req.body.address2, 
+                city: req.body.city, 
+                state: req.body.state, 
+                zip: req.body.zip, 
+                userID: req.user.id})
             console.log('Customer has been added.')
             res.redirect('/dashboard')
         } catch(err) {

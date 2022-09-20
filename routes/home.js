@@ -12,7 +12,7 @@ router.get('/user/:id', homeController.getEditUser)
 router.put('/user/:id', homeController.updateUserAddress)
 router.get('/customer/:id', homeController.getCustomer)
 router.put('/customer/:id', homeController.updateCustomer)
-router.delete('/customer/delete', homeController.deleteCustomer)
+router.delete('/customer/delete/:id', homeController.deleteCustomer)
 router.get('/customer/email/:id', homeController.getCustomerEmail)
 
 router.get('/login', authController.getLogin)

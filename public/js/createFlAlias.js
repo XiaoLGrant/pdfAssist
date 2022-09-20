@@ -15,30 +15,19 @@ async function fillForm() {
   const plaintiff = form.getTextField('plaintiff')
   const defendant = form.getTextField('defendant')
   const servee = form.getTextField('servee')
-  const summonsTitle = form.getTextField('Text6')
-//   if (form.getTextField('customerName')) {
-//     const customer = form.getTextField('customerName')
-//     customer.setText(`${getCustomerInfo()}`)
-//   }
+  const summonsTitle = form.getTextField('summonsTitle')
+  const customer = form.getTextField('customer')
+
+  const customerText = await getCustomerInfo()
 
   //Fill out the form fields
-  caseNumField.setText(`Case Number: ${getCaseNum()}`)
+  caseNumField.setText(`Case No. ${getCaseNum()}`)
   matterNum.setText(`Matter Number: ${getMatterNum()}`)
   plaintiff.setText(getPlaintiff())
   defendant.setText(getDefendant())
   servee.setText(getServeeInfo())
   summonsTitle.setText(getSummonsTitle())
-
-//   courtInfo.setText(`Clerk of the Court\n${getCounty()}, Texas\n${getCourtAddress()}`)
-//   caseInfo.setText(`${getPlaintiff()} vs. ${getDefendant()}; ${getCourt()}`)
-//   servee1AddField.setText(getServee1Info())
-//   servee2AddField.setText(getServee2Info())
-//   serviceType.setText(`Please issue a separate Citation for each defendant for service by a ${getServiceType()}.`)
-//   docReturnType.setText(await getDocReturnMethod())
-//   generatedDate.setText(`Generated: ${getDate()}`)
-//   returnAddress1.setText(`${getFormValue('#retAdd1').split('**').map(str => str.trim()).join('\n')}`)
-//   returnAddress2.setText(`${getFormValue('#retAdd2').split('**').map(str => str.trim()).join('\n')}`)
-//   signature.setText(`${getFormValue('#signature')}`)
+  customer.setText(`${customerText}`)
 
   // form.flatten()
 
@@ -89,31 +78,6 @@ function getCaseNum() {
 }
 
 //Helper functions to get misc form info
-
-async function getDocReturnMethod() {
-  const serviceType = getFormValue('#txServiceType')
-  const returnMethod = getFormValue('#txDocReturnMethod')
-  const id = getFormValue('#customerEmail')
-  let email = ""
-  try {
-    if (id !== "") {
-      const res = await fetch(`/customer/email/${id}`)
-      const data = await res.json()
-      email = data[0].email
-    }
-    if (serviceType === 'sheriff' || serviceType === 'constable') {
-      return `Dispatch all documents to the ${serviceType} for service`
-    } else if (returnMethod === 'Email to ') {
-        return `${returnMethod}${email}`
-    } else {
-        return returnMethod
-    }
-    
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 function getSummonsTitle() {
     const prefix = getFormValue('#summonsTitle')
     if (prefix === 'Initial') {
@@ -147,7 +111,12 @@ async function getCustomerInfo() {
         const id = getFormValue('#customerName')
         const res = await fetch(`/customer/email/${id}`)
         const data = await res.json()
-        return `${data[0].customerName}\n${data[0].email}`
+        if (data[0].address2 !== '') {
+            return `Plaintiff's Attorney:\n${data[0].customerName}\n${data[0].address1}, ${data[0].address2}, ${data[0].city}, ${data[0].state} ${data[0].zip}`
+        } else {
+            return `Plaintiff's Attorney:\n${data[0].customerName}\n${data[0].address1}, ${data[0].city}, ${data[0].state} ${data[0].zip}`
+        }
+        
     } catch(err) {
         console.log(err)
     }

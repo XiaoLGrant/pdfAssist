@@ -46,7 +46,31 @@
                             <label for="customerEmail">Email</label>
                             <input type="email" class="form-control" name="customerEmail" id="customerEmail">
                         </div>
-                    </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1" aria-describedby="addressHelp">
+                        </div>
+                        <div class="col">
+                            <label for="inputAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity" name="city">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="inputState">State</label>
+                            <input type="text" class="form-control" id="inputState" maxlength="2" name="state">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" class="form-control" id="inputZip" maxlength="5" name="zip">
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <input class="btn btn-secondary btn-sm my-2" type="submit">
@@ -56,15 +80,33 @@
             </div>
             <div class="my-3">
                 <h3>Current Customers</h3>
-                <ul class="customerList">
-                    <% customerList.forEach(customer => { %>
-                        <li class="customerList" data-id="<%=customer._id%>">
-                            <span><%= customer.customerName %>: <%= customer.email %></span>
-                            <a href="/customer/<%= customer._id %>"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <span class="del"><i class="fa-regular fa-trash-can"></i></span>
-                        </li>
-                    <% }) %>
-                </ul>
+                <table class="table">
+                    <tbody>
+                        <% customerList.forEach(customer => { %>
+                            <tr data-id="<%=customer._id%>">
+                                <td>
+                                    <span><%= customer.customerName %></span>
+                                </td>
+                                <td>
+                                    <span><%= customer.email %></span>
+                                </td>
+                                <td>
+                                   <%= customer.address1 %>,
+                                    <% if(customer.address2 !== '') {%>
+                                        <%= customer.address2 %>,
+                                    <% } %>
+                                    <%= customer.city %>, <%= customer.state %> <%= customer.zip %>
+                                </td>
+                                <td>
+                                    <a href="/customer/<%= customer._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <form class="d-inline-block" action="/customer/delete/<%= customer._id %>?_method=DELETE" method="POST">
+                                        <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
             </div> 
         </div>
     </section>
@@ -80,30 +122,6 @@
             Example: <a href="https://legal-docs-generator.herokuapp.com/summons/alachua&cc">https://legal-docs-generator.herokuapp.com/summons/alachua&cc</a>
         </p>
     </div> -->
-    <!-- <section class="p-3 bg-light">
-        <div class="container rounded-3 p-4 bg-body">
-            <h2>Available Templates</h2>
-            <ul class="templates">
-            <% for(let i=0; i<flTemplates.length; i++) { %>
-                <li class="available-templates">
-                    <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
-                    <% if (flTemplates[i].tier === 'sc') { %>
-                        <span>Small Claims</span>
-                    <% } else if (flTemplates[i].tier === 'cc') { %>
-                        <span>County Civil</span>
-                    <% } else if (flTemplates[i].tier === 'ca') { %>
-                        <span>Circuit Civil</span>
-                    <% } %>
-                    <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
-                </li>
-            <% } %>
-            </ul>
-        </div>
-    </section>
-         -->
-    <div id="available-templates">
-
-    </div>
     
     <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     
