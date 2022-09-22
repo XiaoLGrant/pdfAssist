@@ -18,11 +18,8 @@
                     <%= userInfo[0].address2 %>,
                 <% } %>
                 <%= userInfo[0].city %>, <%= userInfo[0].state %> <%= userInfo[0].zip %><br>
-                <% if(userInfo[0].phone !== '') {%>
-                    Phone: <%= userInfo[0].phone %><br><br>
-                <% } %>
-                <% if(userInfo[0].returnAddress2 !== '') {%>
-                    <% userInfo[0].returnAddress2.split('\n').forEach(line => { %>
+                <% if(userInfo[0].letterHeading !== '') {%>
+                    <% userInfo[0].letterHeading.split('\n').forEach(line => { %>
                         <%= line %><br>
                     <% }) %>
                 <% } %>

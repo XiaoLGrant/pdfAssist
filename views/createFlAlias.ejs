@@ -70,7 +70,7 @@
                         <fieldset class="templateInfo">
                             <legend>Template Information</legend>
                             <label for="summonsTitle">Summons Title</label>
-                            <select name="summonsTitle" id="summonsTitle">
+                            <select class="form-select" name="summonsTitle" id="summonsTitle">
                                 <option value="">Choose an option</option>
                                 <option value="Initial">Initial</option>
                                 <option value="Alias">Alias</option>
@@ -78,10 +78,10 @@
                             </select>
     
                             <label for="pluriesNum">Pluries Number</label>
-                            <input type="number" name="pluriesNum" id="pluriesNum">
+                            <input class="form-control" type="number" name="pluriesNum" id="pluriesNum">
     
                             <label for="customerName">Customer</label>
-                            <select name="customerName" id="customerName">
+                            <select class="form-select" name="customerName" id="customerName">
                                 <option value="">Choose an option</option>
                                 <% customerList.forEach(customer => {%>
                                     <option value="<%= customer._id %>"><%= customer.customerName %></option>

@@ -11,8 +11,7 @@ const UserSchema = new mongoose.Schema({
   city: { type: String },
   state: { type: String },
   zip: { type: String },
-  phone: { type: String },
-  returnAddress2: { type: String }
+  letterHeading: { type: String }
 })
 
 

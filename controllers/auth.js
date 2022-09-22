@@ -76,8 +76,9 @@ const User = require('../models/User')
       address1: req.body.address1,
       address2: req.body.address2,
       city: req.body.city,
-      state: req.body.state.toUpperCase(),
-      zip: req.body.zip
+      state: req.body.state,
+      zip: req.body.zip,
+      letterHeading: req.body.letterHeading
     })
 
     User.findOne({$or: [

@@ -19,8 +19,7 @@ async function fillForm() {
   const docReturnType = form.getTextField('docReturnType')
   const matterNum = form.getTextField('matterNumber')
   const generatedDate = form.getTextField('generateDate')
-  const returnAddress1 = form.getTextField('returnAdd1')
-  const returnAddress2 = form.getTextField('returnAdd2')
+  const returnAddress = form.getTextField('returnAdd')
   const signature = form.getTextField('userName')
 
   //Fill out the form fields
@@ -33,9 +32,8 @@ async function fillForm() {
   docReturnType.setText(await getDocReturnMethod())
   matterNum.setText(`Matter Number: ${getMatterNum()}`)
   generatedDate.setText(`Generated: ${getDate()}`)
-  returnAddress1.setText(`${getFormValue('#retAdd1').split('**').map(str => str.trim()).join('\n')}`)
-  returnAddress2.setText(`${getFormValue('#retAdd2').split('**').map(str => str.trim()).join('\n')}`)
-  signature.setText(`${getFormValue('#signature')}`)
+  returnAddress.setText(await getLetterHeading())
+  signature.setText(await getSignature())
 
   // form.flatten()
 
@@ -138,10 +136,46 @@ async function getDocReturnMethod() {
       return `Dispatch all documents to the ${serviceType} for service`
     } else if (returnMethod === 'Email to ') {
         return `${returnMethod}${email}`
+    } else if (returnMethod === 'Mail to ') {
+        const userId = document.querySelector('#create').dataset.userid
+        const user = await fetch(`/user/info/${userId}`)
+        const data = await user.json()
+        // const address = data[0].returnAddress.split('\r\n').join(' ')
+        const address2 = data[0].address2
+        const address = (address2 === '') ? `${data[0].address1}, ${data[0].city}, ${data[0].state} ${data[0].zip}` : `${data[0].address1}, ${data[0].address2}, ${data[0].city}, ${data[0].state} ${data[0].zip}`
+        return `${returnMethod}${address}`
     } else {
-        return returnMethod
+      return `${returnMethod}`
     }
     
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function getLetterHeading() {
+  try {
+    const userId = document.querySelector('#create').dataset.userid
+    const user = await fetch(`/user/info/${userId}`)
+    const data = await user.json()
+    const business = data[0].businessName
+    // const address = data[0].returnAddress.split('\r\n').join('\n')
+    const address2 = data[0].address2
+    const address = (address2 === '') ? `${data[0].address1}, ${data[0].city}, ${data[0].state} ${data[0].zip}` : `${data[0].address1}, ${data[0].address2}, ${data[0].city}, ${data[0].state} ${data[0].zip}`
+    const additionalHeading = data[0].letterHeading.split('\r\n').join('\n')
+    return `${business}\nAddress: ${address}\n${additionalHeading}`
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function getSignature() {
+  try {
+    const userId = document.querySelector('#create').dataset.userid
+    const user = await fetch(`/user/info/${userId}`)
+    const data = await user.json()
+    const business = data[0].businessName
+    return `${business}`
   } catch (err) {
     console.log(err)
   }

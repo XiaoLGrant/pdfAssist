@@ -40,11 +40,18 @@ module.exports = {
                 city: req.body.city,
                 state: req.body.state,
                 zip: req.body.zip,
-                phone: req.body.phoneNumber,
-                returnAddress2: req.body.returnAddress2
+                letterHeading: req.body.letterHeading
             })
             console.log('User return address updated')
             res.redirect('/dashboard')
+        } catch(err) {
+            console.log(err)
+        }
+    },
+    getUserInfo: async (req, res) => {
+        try {
+            const user = await User.find({_id: req.params.id})
+            res.json(user)
         } catch(err) {
             console.log(err)
         }

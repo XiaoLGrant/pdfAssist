@@ -29,20 +29,6 @@
                 </div>
             </section>
 
-            <section hidden>
-                <input type="hidden" id="signature" value="<%= user[0].businessName %>">
-                <textarea id="retAdd1">
-                    <%= user[0].businessName.toUpperCase() %>**Address: <%= user[0].address1 %>, <%= user[0].address2 %> <%= user[0].city %>, <%= user[0].state %> <%= user[0].zip %>**<% if(user[0].phone !== '') {%>Phone: <%= user[0].phone %><% } %>
-                </textarea>
-                <% if(user[0].returnAddress2 !== '') {%>
-                    <textarea id="retAdd2">
-                        <% user[0].returnAddress2.split('\n').forEach(line => { %>
-                            <%= line %>**
-                        <% }) %>
-                    </textarea>
-                <% } %>
-            </section>
-
             <section class="txLetterForm">
                 <div class="row">
                     <div class="col-3 inputPreview border" id="inputPreview2">
@@ -92,31 +78,35 @@
                                     <legend>Service & Return Method</legend>
                                     <label for="txServiceType">Service Method</label>
                                     <select class="form-select" name="txServiceType" id="txServiceType" aria-label="Select service method">
-                                        <option value="">Choose an option</option>
+                                        <option value="choose">Choose service method</option>
                                         <option value="private process server">Private Process Server</option>
                                         <option value="sheriff">Sheriff</option>
                                         <option value="constable">Constable</option>
                                     </select>
-                    
+
                                     <label for="txDocReturnMethod">Doc Return Method</label>
                                     <select class="form-select" name="txDocReturnMethod" id="txDocReturnMethod" aria-label="Select document return method">
-                                        <option value="">Choose an option</option>
-                                        <option value="Mail to <%= user[0].businessName %> at <%= user[0].address1 %><% if(user[0].address2.length !== 0) { %><%= user[0].address2 %><% } %> <%= user[0].city %>, <%= user[0].state %> <%= user[0].zip %>">Mail</option>
-                                        <option value="Hold for pickup by local <%= user[0].businessName %> courier">Hold for pickup</option>
-                                        <option value="Email to ">Email to </option>
+                                        <option value="choose" data-dep="choose">Choose a service method</option>
+                                        <option value="" data-dep="private process server">Choose an option</option>
+                                        <option value="" data-dep="sheriff">Selection not needed</option>
+                                        <option value="Mail to " data-dep="private process server">Mail</option>
+                                        <option value="Hold for pickup by local <%= user[0].businessName %> courier" data-dep="private process server">Hold for pickup</option>
+                                        <option value="Email to " data-dep="private process server">Email to </option>
                                     </select>
-                                
+
                                     <label for="customerEmail">Customer Email</label>
                                     <select class="form-select" name="customerEmail" id="customerEmail" aria-label="Select customer email">
-                                        <option value="">Choose a customer</option>
+                                        <option value="" data-dep="choose">Choose a doc return method</option>
+                                        <option value="" data-dep="Email to ">Choose a customer</option>
+                                        <option value="" data-dep="sheriff">Selection not needed</option>
                                         <% customerList.forEach(customer => { %>
-                                            <option value="<%= customer._id %>"><%= customer.customerName %></option>
+                                            <option value="<%= customer._id %>" data-dep="Email to "><%= customer.customerName %></option>
                                         <% }) %>
                                     </select>
                                 </fieldset>
 
                                 <label for="txAliasTemplate">Template</label>
-                                <select name="txAliasTemplate" id="txAliasTemplate">
+                                <select class="form-select" name="txAliasTemplate" id="txAliasTemplate">
                                     <option value="">Choose an option</option>
                                     <% templates.forEach(template => { %>
                                         <option value="<%= template.file %>"><%= template.templateType %></option>
@@ -126,7 +116,7 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <button class="btn btn-primary btn-sm" id="create">Create PDF</button>
+                                    <button class="btn btn-primary btn-sm" id="create" data-userId="<%= user[0]._id %>">Create PDF</button>
                                     <span class="btn btn-secondary btn-sm" id="resetTxLetForm">Reset</span>
                                 </div>
                             </div>
@@ -143,5 +133,32 @@
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
     <script src="js/createTxAlias.js"></script>
+    <script>
+        let $serviceMethod = $( '#txServiceType' );
+		let $returnMethod = $( '#txDocReturnMethod' );
+        let $returnOptions = $returnMethod.find( 'option' );
+        let $emailSelect = $( '#customerEmail');
+        let $emailOptions = $emailSelect.find( 'option' );
+            
+        $serviceMethod.on( 'change', function() {
+            if (this.value === 'constable') {
+                $returnMethod.html( $returnOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
+                $emailSelect.html( $emailOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
+            } else if (this.value === 'sheriff') {
+                $returnMethod.html( $returnOptions.filter( '[data-dep="' + this.value + '"]' ) );
+                $emailSelect.html( $emailOptions.filter( '[data-dep="' + this.value + '"]' ) );
+            } else {
+                $returnMethod.html( $returnOptions.filter( '[data-dep="' + this.value + '"]' ) );
+            }
+        }).trigger( 'change' );
+
+        $returnMethod.on( 'change', function() {
+            if (this.value === 'Email to ' || this.value === 'choose') {
+                $emailSelect.html( $emailOptions.filter( '[data-dep="' + this.value + '"]' ) );
+            } else {
+                $emailSelect.html( $emailOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
+            }
+        }).trigger( 'change' );
+    </script>
 
 <%- include('partials/footer') -%>

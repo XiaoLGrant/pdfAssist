@@ -7,9 +7,14 @@
         <% }) %>
     <% } %>
 
-    <section class="p-5 text-center text-sm-start">
+    <section class="p-5 bg-primary text-light">
         <div class="container">
             <h1>Update Return Address</h1>
+        </div>
+    </section>
+
+    <section class="p-5 text-center text-sm-start">
+        <div class="container">
             <form action="/user/<%= userInfo[0]._id %>?_method=PUT" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="row">
@@ -17,19 +22,15 @@
                         <label for="businessInput">Business Name</label>
                         <input type="text" class="form-control" id="businessInput" name="businessName" value="<%= userInfo[0].businessName %>">
                     </div>
-                    <div class="col">
-                        <label for="phoneInput">Phone Number</label>
-                        <input type="tel" class="form-control" id="phoneInput" name="phoneNumber" value="<%= userInfo[0].phone %>">
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" name="address1" value="<%= userInfo[0].address1 %>">
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1" value="<%= userInfo[0].address1 %>">
                     </div>
                     <div class="col">
                         <label for="inputAddress2">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2" name="address2" value="<%= userInfo[0].address2 %>">
+                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2" value="<%= userInfo[0].address2 %>">
                     </div>
                 </div>
                 <div class="row">
@@ -45,14 +46,13 @@
                         <label for="inputZip">Zip</label>
                         <input type="text" class="form-control" id="inputZip" maxlength="5" name="zip" value="<%= userInfo[0].zip %>">
                     </div>
-                </div>
                 <div class="row">
                     <div class="col">
-                        <label for="returnAddress2Input">Additional Return Address Info</label>
-                        <textarea type="text" class="form-control" id="returnAddress2Input" name="returnAddress2"><%= userInfo[0].returnAddress2 %></textarea>
-                    </div>
+                        <label for="letterHeading">Additional Letter Heading Information</label>
+                        <textarea type="text" class="form-control" rows="5" style="height:100%" id="letterHeading" name="letterHeading" placeholder="Phone: 000-000-0000&#10;&#10;PARTNER&#10;Name E-File Texas&#10;E-FILE ONLY, Dallas, TX 12345"><%= userInfo[0].letterHeading %></textarea>
+                    </div>   
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col">
                         <input class="btn btn-primary btn-sm my-2" type="submit">
                         <a href="/dashboard" class="btn btn-secondary btn-sm my-2">Cancel</a>
