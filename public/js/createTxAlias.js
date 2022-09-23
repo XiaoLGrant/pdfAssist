@@ -198,8 +198,35 @@ function clearFields() {
   document.querySelector('#servee1Address').value = ""
   document.querySelector('#servee2Name').value = ""
   document.querySelector('#servee2Address').value = ""
-  document.querySelector('#txServiceType').value = ""
-  document.querySelector('#txDocReturnMethod').value = ""
-  document.querySelector('#customerEmail').value = ""
+  document.querySelector('#txServiceType').value = "choose"
+  document.querySelector('#txDocReturnMethod').value = "choose"
+  document.querySelector('#customerEmail').value = "choose"
   document.querySelector('#txAliasTemplate').value = ""
 }
+
+/* filter form fields */
+let $serviceMethod = $( '#txServiceType' );
+let $returnMethod = $( '#txDocReturnMethod' );
+let $returnOptions = $returnMethod.find( 'option' );
+let $emailSelect = $( '#customerEmail');
+let $emailOptions = $emailSelect.find( 'option' );
+    
+$serviceMethod.on( 'change', function() {
+    if (this.value === 'constable') {
+        $returnMethod.html( $returnOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
+        $emailSelect.html( $emailOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
+    } else if (this.value === 'sheriff') {
+        $returnMethod.html( $returnOptions.filter( '[data-dep="' + this.value + '"]' ) );
+        $emailSelect.html( $emailOptions.filter( '[data-dep="' + this.value + '"]' ) );
+    } else {
+        $returnMethod.html( $returnOptions.filter( '[data-dep="' + this.value + '"]' ) );
+    }
+}).trigger( 'change' );
+
+$returnMethod.on( 'change', function() {
+    if (this.value === 'Email to ' || this.value === 'choose') {
+        $emailSelect.html( $emailOptions.filter( '[data-dep="' + this.value + '"]' ) );
+    } else {
+        $emailSelect.html( $emailOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
+    }
+}).trigger( 'change' );

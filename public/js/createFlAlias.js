@@ -9,6 +9,7 @@ async function fillForm() {
   const pdfDoc = await PDFDocument.load(existingPdfBytes)
   const form = pdfDoc.getForm()
 
+
   //Get the form fields
   const caseNumField = form.getTextField('caseNumber')
   const matterNum = form.getTextField('matterNumber')
@@ -17,8 +18,13 @@ async function fillForm() {
   const servee = form.getTextField('servee')
   const summonsTitle = form.getTextField('summonsTitle')
   const customer = form.getTextField('customer')
-
   const customerText = await getCustomerInfo()
+
+  //Get and fill out court address form field if county is Miami-Dade -- will need to update to specify filing tier & other counties (broward) in the future
+  if ( document.querySelector('#countyInfo').value == 'Miami-Dade' ) {
+    const courtAddress = form.getTextField('courtAddress')
+    courtAddress.setText(`${await getCourtAddress()}`)
+  }
 
   //Fill out the form fields
   caseNumField.setText(`Case No. ${getCaseNum()}`)
@@ -123,6 +129,67 @@ async function getCustomerInfo() {
 
 }
 
+async function getCourtAddress() {
+  try {
+    const county = getFormValue('#countyInfo')
+    const tier = $( "#tierInfo" ).find('option:selected').data("tier")
+    if ( county == 'Miami-Dade' && tier == 'cc' ) {
+      const caseNumber = getFormValue('#caseNum')
+      const division = '' + caseNumber.slice(-2)
+      let address = ''
+      switch(division) {
+        case '05':
+          address = 'Dade County Courthouse (05)\nRoom 133\n73 West Flagler Street\nMiami, FL 33130';
+          break;
+        case '20':
+          address = 'Joseph Caleb Center Court (20)\nSuite 103\n5400 N.W. 22nd Avenue\nMiami, FL 33142';
+          break;
+        case '21':
+          address = 'Hialeah District Court (21)\nRoom100\n11 East 6th Street\nHialeah, Florida 33010';
+          break;
+        case '23':
+          address = 'North Dade Justice Center (23)\nRoom100\n15555 Biscayne Blvd.\nNorth Miami Beach, FL 33160';
+          break;
+        case '24':
+          address = 'Miami Beach District Court (24)\nRoom 200\n1130 Washington Avenue\nMiami Beach, FL 33139';
+          break;
+        case '25':
+          address = 'Coral Gables District Court (25)\nRoom 100\n3100 Ponce de Leon Blvd.\nCoral Gables, Florida 33134';
+          break;
+        case '26':
+          address = 'South Dade Justice Center (26)\nRoom 1200\n10710 SW 211 Street\nMiami, FL 33189';
+          break;
+      }
+      return address
+    } else if ( county == 'Broward' && tier == 'cc' ) {
+      const caseNumber = getFormValue('#caseNum')
+      const division = caseNumber.slice(0, 4)
+      let address = ''
+      switch(division) {
+        case 'COCE':
+          address = 'Broward County Central Courthouse\n201 SE 6th Street\nFort Lauderdale, FL 33301';
+          break;
+        case 'CONO':
+          address = 'Broward North Regional Courthouse\n1600 W Hillsboro Blvd\nDeerfield Beach, FL 33442';
+          break;
+        case 'COWE':
+          address = 'Broward West Regional Courthouse\n100 N Pine Island Rd\nPlantation, FL 33317';
+          break;
+        case 'COSO':
+          address = 'Broward South Regional Courthouse\n3550 Hollywood Blvd\nHollywood, FL 33021';
+          break;
+        case 'CACE':
+          address = 'Broward County Central Courthouse\n201 SE 6th Street\nFort Lauderdale, FL 33301';
+          break;
+      }
+      return address
+    }
+  } catch(err) {
+    console.log(err)
+  }
+
+}
+
 
 /*Clear form fields*/
 document.querySelector('#resetForm').addEventListener('click', clearFields)
@@ -140,3 +207,12 @@ function clearFields() {
   document.querySelector('#pluriesNum').value = ""
   document.querySelector('#customerName').value = ""
 }
+
+/* Filter drop downs*/
+let $county = $( '#countyInfo' )
+let $tier = $( '#tierInfo' )
+let $options = $tier.find( 'option' );
+    
+$county.on( 'change', function() {
+    $tier.html( $options.filter( '[data-dep="' + this.value + '"]' ) );
+} ).trigger( 'change' );

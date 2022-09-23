@@ -36,7 +36,7 @@ module.exports = {
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('FL template has been added');
-            res.redirect('/templates');
+            res.redirect('/templates/#flTemplatesSection');
         }catch(err){
             console.log(err);
         }
@@ -68,7 +68,7 @@ module.exports = {
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('FL template has been updated');
-            res.redirect('/templates');
+            res.redirect('/templates/#flTemplatesSection');
         }catch(err){
             console.log(err);
         }
@@ -79,7 +79,7 @@ module.exports = {
             await cloudinary.uploader.destroy(template.cloudinaryId);
             await FLTemplates.remove({ _id: req.params.id });
             console.log("Deleted template");
-            res.redirect("/templates");
+            res.redirect("/templates/#flTemplatesSection");
         } catch (err) {
             res.redirect("/templates");
         }
@@ -100,7 +100,7 @@ module.exports = {
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('Tx Template has been added');
-            res.redirect('/templates');
+            res.redirect('/templates/#txTemplatesSection');
         }catch(err){
             console.log(err);
         }
@@ -130,7 +130,7 @@ module.exports = {
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('TX template has been updated');
-            res.redirect('/templates');
+            res.redirect('/templates/#txTemplatesSection');
         }catch(err){
             console.log(err);
         }
@@ -141,7 +141,7 @@ module.exports = {
             await cloudinary.uploader.destroy(template.cloudinaryId);
             await TXTemplates.remove({ _id: req.params.id });
             console.log("Deleted template");
-            res.redirect("/templates");
+            res.redirect("/templates/#txTemplatesSection");
         } catch (err) {
             res.redirect("/templates");
         }

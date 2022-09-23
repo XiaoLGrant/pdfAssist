@@ -114,7 +114,7 @@ module.exports = {
                 zip: req.body.zip, 
                 userID: req.user.id})
             console.log('Customer has been added.')
-            res.redirect('/dashboard')
+            res.redirect('/dashboard/#customersSection')
         } catch(err) {
             console.log(err)
         }

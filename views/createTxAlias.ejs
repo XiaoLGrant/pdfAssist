@@ -133,32 +133,5 @@
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
     <script src="js/createTxAlias.js"></script>
-    <script>
-        let $serviceMethod = $( '#txServiceType' );
-		let $returnMethod = $( '#txDocReturnMethod' );
-        let $returnOptions = $returnMethod.find( 'option' );
-        let $emailSelect = $( '#customerEmail');
-        let $emailOptions = $emailSelect.find( 'option' );
-            
-        $serviceMethod.on( 'change', function() {
-            if (this.value === 'constable') {
-                $returnMethod.html( $returnOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
-                $emailSelect.html( $emailOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
-            } else if (this.value === 'sheriff') {
-                $returnMethod.html( $returnOptions.filter( '[data-dep="' + this.value + '"]' ) );
-                $emailSelect.html( $emailOptions.filter( '[data-dep="' + this.value + '"]' ) );
-            } else {
-                $returnMethod.html( $returnOptions.filter( '[data-dep="' + this.value + '"]' ) );
-            }
-        }).trigger( 'change' );
-
-        $returnMethod.on( 'change', function() {
-            if (this.value === 'Email to ' || this.value === 'choose') {
-                $emailSelect.html( $emailOptions.filter( '[data-dep="' + this.value + '"]' ) );
-            } else {
-                $emailSelect.html( $emailOptions.filter( '[data-dep="' + 'sheriff' + '"]' ) );
-            }
-        }).trigger( 'change' );
-    </script>
-
+    
 <%- include('partials/footer') -%>
