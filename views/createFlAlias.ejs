@@ -18,9 +18,22 @@
                                 <label for="countyInfo">County:</label>
                                 <select class="form-select" name="countyInfo" id="countyInfo" aria-label="Select county">
                                     <option>Select a county</option>
-                                    <% templates.forEach(template => {%>
+                                    <!-- <% templates.forEach(template => {%>
                                         <option value="<%= template.countyName %>"><%= template.countyName %></option>
-                                    <% }) %>
+                                    <% }) %> -->
+                                    <!-- <% templates.reduce((acc, c) => {%>
+                                        <% if (!acc[c.countyName]) { %>
+                                            <% acc.push(c.countyName)%>
+                                        <% } %>
+                                        <% console.log(acc) %>
+                                        <% return acc %>
+                                    <% }, []).forEach(county => { %> 
+                                        <option value="<%= county.countyName %>"><%= county.countyName %></option>
+                                    <% }) %> -->
+                                    <% for (template in filteredTemplates) { %>
+                                        <option value="<%= template %>"><%= template %></option>
+                                    <% } %>
+
                                 </select>
                                 <label for="tierInfo">Tier:</label>
                                 <select class="form-select" name="tierInfo" id="tierInfo" aria-label="Select county">
