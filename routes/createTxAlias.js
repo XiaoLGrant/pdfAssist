@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const txTemplateController = require('../controllers/createTxAlias')
 
-router.get('/', txTemplateController.getCreateTxAlias)
+router.get('/', txTemplateController.getTxAliasCreator)
 
 //router.post('/createTemplate', txTemplateController.createTxAlias)
 

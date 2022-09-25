@@ -3,7 +3,7 @@ const Customers = require('../models/Customers')
 const Users = require('../models/User')
 
 module.exports = {
-    getCreateTxAlias: async (req,res)=>{
+    getTxAliasCreator: async (req,res)=>{
         try {
             const templateData = await TxTemplates.find().sort({templateType: 1})
             const customers = await Customers.find({userID: req.user.id}).sort({customerName: 1})

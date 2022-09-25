@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbarLoggedIn') -%>
 
-<section class="p-5 bg-primary text-light">
+<section class="p-5 bg-dark text-light">
     <div class="container">
         <h1>Edit FL <%= flTemplate.countyName[0].toUpperCase() + flTemplate.countyName.slice(1) %> <% if (flTemplate.tier === 'sc') { %> Small Claims <% } else if (flTemplate.tier === 'cc') { %> County Civil <% } else if (flTemplate.tier === 'ca') { %> Circuit Civil <% } %> <%= flTemplate.templateType %> Template</h1>
     </div>

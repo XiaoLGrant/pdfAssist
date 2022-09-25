@@ -7,68 +7,78 @@
         <% }) %>
     <% } %>
 
-    <section class="p-5 text-center text-sm-start">
-        <div class="container">
-            <h1>Sign Up</h1>
-            <form action="/signup" method="POST">
-                <div class="row">
-                    <div class="col">
-                        <label for="userNameInput">Name</label>
-                        <input type="text" class="form-control" id="userNameInput" name="userName">
-                    </div>
-                    <div class="col">
-                        <label for="emailInput">Email</label>
-                        <input type="email" class="form-control" id="emailInput" placeholder="example@email.com" name="email">
+    <section class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8">
+                <div class="card shadow-2-strong">
+                    <div class="card-body p-5 text-center">
+                        <h1 class="mb-5">Sign Up</h1>
+                        <form action="/signup" method="POST">
+                            <div class="row my-2">
+                                <div class="col-md">
+                                    <label for="userNameInput">Name</label>
+                                    <input type="text" class="form-control form-control-md" id="userNameInput" name="userName">
+                                </div>
+                                <div class="col-md">
+                                    <label for="emailInput">Email</label>
+                                    <input type="email" class="form-control form-control-md" id="emailInput" name="email">
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-md-6">
+                                    <label for="passwordInput">Password</label>
+                                    <input type="password" class="form-control form-control-md" id="passwordInput" name="password">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="confirmPasswordInput">Confirm Password</label>
+                                    <input type="password" class="form-control form-control-md" id="confirmPasswordInput" name="confirmPassword">
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col">
+                                    <label for="businessInput">Business Name</label>
+                                    <input type="text" class="form-control form-control-md" id="businessInput" name="businessName">
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-md">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" class="form-control form-control-md" id="inputAddress" placeholder="1234 Main St" name="address1" aria-describedby="addressHelp">
+                                    <small id="addressHelp" class="form-text text-muted">An address is needed in order to add a letter heading to our TX citation request templates. We'll never share your information.</small>
+                                </div>
+                                <div class="col-md">
+                                    <label for="inputAddress2">Address 2</label>
+                                    <input type="text" class="form-control form-control-md" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-sm-6">
+                                    <label for="inputCity">City</label>
+                                    <input type="text" class="form-control form-control-md" id="inputCity" name="city">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="inputState">State</label>
+                                    <input type="text" class="form-control form-control-md" id="inputState" maxlength="2" name="state">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="inputZip">Zip</label>
+                                    <input type="text" class="form-control form-control-md" id="inputZip" maxlength="5" name="zip">
+                                </div>
+                            <div class="row my-2">
+                                <div class="col">
+                                    <label for="letterHeading">Additional Letter Heading Information</label>
+                                    <textarea type="text" class="form-control form-control-md signUpTextArea" rows="5" id="letterHeading" name="letterHeading" placeholder="Phone: 000-000-0000&#10;&#10;PARTNER&#10;Name E-File Texas&#10;E-FILE ONLY, Dallas, TX 12345"></textarea>
+                                </div>   
+                            </div>
+                            <div class="row my-2">
+                                <div class="col">
+                                    <input class="btn btn-primary btn-md" type="submit">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="passwordInput">Password</label>
-                        <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="confirmPasswordInput">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Password" name="confirmPassword">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="businessInput">Business Name</label>
-                        <input type="text" class="form-control" id="businessInput" name="businessName">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1" aria-describedby="addressHelp">
-                        <small id="addressHelp" class="form-text text-muted">An address is needed in order to add a letter heading to our TX citation request templates. We'll never share your information.</small>
-                    </div>
-                    <div class="col">
-                        <label for="inputAddress2">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity" name="city">
-                    </div>
-                    <div class="col-md-2">
-                        <label for="inputState">State</label>
-                        <input type="text" class="form-control" id="inputState" maxlength="2" name="state">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" maxlength="5" name="zip">
-                    </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="letterHeading">Additional Letter Heading Information</label>
-                        <textarea type="text" class="form-control" rows="5" style="height:100%" id="letterHeading" name="letterHeading" placeholder="Phone: 000-000-0000&#10;&#10;PARTNER&#10;Name E-File Texas&#10;E-FILE ONLY, Dallas, TX 12345"></textarea>
-                    </div>   
-                </div>
-                <input class="btn btn-primary btn-sm my-5" type="submit">
-            </form>
+            </div>
         </div>
     </section>
 

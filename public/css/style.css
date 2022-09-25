@@ -41,20 +41,6 @@ legend {
     height: 5em;
 }
 
-.buttons {
-    padding: 0.25em;
-}
-
-.newTemplateButton {
-    color: white;
-    text-decoration: none;
-}
-
-.newTemplateButton:hover {
-    border: 1px solid #4DC6E2;
-    background: #4DC6E2;
-}
-
 .txServiceDocReturn {
     margin-bottom: 1em;
 }
@@ -82,4 +68,67 @@ legend {
 iframe {
     height: 85vh;
     width: 100%;
+}
+
+.indexHero {
+    background-image: -moz-linear-gradient(top, rgba(61, 60, 60, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/signingDocs.jpg");
+    background-image: -webkit-linear-gradient(top, rgba(61, 60, 60, 0.5), rgba(61, 60, 60, 0.5)), url("../../img/signingDocs.jpg");
+    background-image: -ms-linear-gradient(top, rgba(5, 47, 71, 0.5), rgba(5, 47, 71, 0.5)), url("../../img/signingDocs.jpg");
+    background-image: linear-gradient(top, rgba(5, 47, 71, 0.5), rgba(5, 47, 71, 0.5)), url("../../img/signingDocs.jpg");
+    background-position: center 40%;
+    background-size: cover;
+}
+
+.btn-primary {
+    background-color: #b7410e;
+    border-color: #b7410e;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: rgb(247, 102, 18) !important;
+    border-color: rgb(247, 102, 18)  !important;
+}
+
+.btn-primary:active {
+    background-color: #cf6030 !important;
+    border-color: #cf6030  !important;
+}
+
+.bg-dark {
+    background-color: #01263b !important;
+}
+
+.navbarBg {
+    background-color: #055888 !important;
+}
+
+.signUpButton {
+    background-color: #055888;
+}
+
+.signUpButton a {
+    color: white;
+}
+
+.signUpButton:hover {
+    background-color: rgba(8, 150, 231, 0.75) !important;
+}
+
+.imgContainer {
+    width: 50%;
+}
+
+.imgCover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.signUpTextArea {
+    height: 100%;
+    width: 100%;
+}
+
+.dropdown-item:hover {
+    background-color: #074366;
 }

@@ -1,30 +1,37 @@
 const FLTemplates = require('../models/FLTemplates')
+const TXTemplates = require('../models/TXTemplates')
 const Customers = require('../models/Customers')
 const User = require('../models/User')
 
 module.exports = {
     getIndex: async (req,res)=>{
         try {
-            const templates = await FLTemplates.find()/*.sort({countyName: 1, tierName: 1})*/
-            console.log(templates)
-            res.render('index.ejs', {flTemplates: templates})
+            const flTemplates = await FLTemplates.find().sort({countyName: 1, tierName: 1})
+            const filteredFlTemplates = await flTemplates.reduce((acc, c) => {
+                if (!acc[c.countyName]) {
+                    acc[c.countyName] = 0
+                }
+                acc[c.countyName]++
+                return acc
+            }, {})
+            const txTemplates = await TXTemplates.find().sort({templateType: 1})
+            res.render('index.ejs', {flTemplates: filteredFlTemplates, txTemplates: txTemplates, })
         } catch(err) {
             console.log(err)
         } 
     },
     getDashboard: async (req,res)=>{
         try {
-            const templates = await FLTemplates.find().sort({countyName: 1, tierName: 1})
             const customers = await Customers.find({userID: req.user.id}).sort({customerName: 1})
             const user = await User.find({_id: req.user.id})
-            res.render('dashboard.ejs', {flTemplates: templates, customerList: customers, userInfo: user})
+            res.render('dashboard.ejs', {customerList: customers, userInfo: user})
         } catch(err) {
             console.log(err)
         } 
     },
     getEditUser: async (req, res) => {
-        const userId = req.params.id
         try {
+            const userId = req.params.id
             const user = await User.find({_id: userId})
             res.render('editUser.ejs', {userInfo: user})
         } catch(err) {
@@ -57,9 +64,9 @@ module.exports = {
         }
     },
     getSummonsJson: async (req, res) => {
-        const county = req.params.county.toLowerCase()
-        const tier = req.params.tier.toLowerCase()
         try {
+            const county = req.params.county.toLowerCase()
+            const tier = req.params.tier.toLowerCase()
             const template = await FLTemplates.find({countyName: county, tier: tier})
             console.log(template)
             res.json(template)

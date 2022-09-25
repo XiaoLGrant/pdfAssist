@@ -12,26 +12,29 @@
         <% }) %>
     <% } %>
 
-    <section class="p-5 text-center text-sm-start">
-        <div class="container">
-            <h1>Login</h1>
-            <form action="/login" method="POST">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="emailInput">Email</label>
-                        <input type="email" class="form-control" id="emailInput" placeholder="example@email.com" name="email">
+    <section class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong">
+                    <div class="card-body p-5 text-center">
+                        <h1 class="mb-5">Login</h1>
+                        <form action="/login" method="POST">
+                            <div class="form-outline mb-4">
+                                <label for="emailInput" clas="form-label">Email</label>                  
+                                <input type="email" class="form-control form-control-lg" id="emailInput" name="email">
+                            </div>
+                
+                            <div class="form-outline mb-4">
+                                <label for="passwordInput" class="form-label">Password</label>
+                                <input type="password" class="form-control form-control-lg" id="passwordInput" name="password">
+                            </div>
+            
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                        </form>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="passwordInput">Password</label>
-                        <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password">
-                    </div>
-                </div>
-                <input class="btn btn-primary btn-sm my-2" type="submit">
-            </form>
+            </div>
         </div>
-
     </section>
 
 <%- include('partials/footer') -%>

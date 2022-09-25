@@ -1,15 +1,15 @@
 <%- include('partials/header') -%>
 <%- include('partials/navbar') -%>
 
-<section class="bg-secondary text-light p-5 text-center text-sm-start">
-    <div class="container">
+<section class="bg-dark text-light p-5 text-center text-sm-start indexHero">
+    <div class="container my-5">
         <div class="d-sm-flex align-items-center justify-content-between">
             <div>
                 <h1>Generate Legal Documents</h1>
-                <p class="lead my-4">Quickly and easily generate summons documents that are ready for filing in FL and TX courts.</p>
+                <p class="lead my-5">Quickly and easily generate summons documents that are ready for filing in FL and TX courts.</p>
                 <a class="btn btn-primary btn-lg" href="/signup">Sign Up to Get Started</a>
             </div>
-            <img class="img-fluid w-25 p-4 d-none d-sm-block" src="/img/file-pdf-regular.svg" alt="pdf vector">
+            <!-- <img class="img-fluid w-25 p-4 d-none d-sm-block" src="/img/signingDocs.jpg" alt="pdf vector"> -->
         </div>
     </div>
 </section>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-md">
-                    <div class="card bg-dark text-light">
+                    <div class="card navbarBg text-light">
                         <div class="card-body text-center">
                             <div class="h1 mb-3">
                                 <i class="bi bi-input-cursor-text"></i>
@@ -64,53 +64,43 @@
         </div>
     </section>
 
-    <section id="flTemplates" class="p-5 bg-dark text-light">
-        <div class="container">
+    <section id="flTemplates" class="bg-dark text-light">
+        <div class="container-flui">
             <div class="row align-items-center justify-content-between">
                 <div class="col-md p-5">
-                    <h2>Available FL Templates</h2>
-                    <p class="lead">Templates for FL summonses, aliases, and pluries are available in the following counties:
+                    <h2>Available Florida Templates</h2>
+                    <p class="lead">Templates for Florida summonses, aliases, and pluries are available in the following counties:
                         <ul class="templates">
-                            <% for(let i=0; i<flTemplates.length; i++) { %>
-                                <li class="available-templates">
-                                    <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
-                                    <% if (flTemplates[i].tier === 'sc') { %>
-                                        <span>Small Claims</span>
-                                    <% } else if (flTemplates[i].tier === 'cc') { %>
-                                        <span>County Civil</span>
-                                    <% } else if (flTemplates[i].tier === 'ca') { %>
-                                        <span>Circuit Civil</span>
-                                    <% } %>
-                                    <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
-                                </li>
+                            <% for (template in flTemplates) {%>
+                                <li><%= template %></li>
                             <% } %>
                         </ul>
                     </p>
+                </div>
+                <div class="col-md">
+                    <div class="position-relative h-100">
+                        <img src="/img/usingLaptop.jpg" alt="Person typing on a laptop." class="img-fluid x-auto d-none d-md-block imgCover">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="txTemplates" class="p-5">
-        <div class="container">
+    <section id="txTemplates" class="align-items-center">
+        <div class="container-fluid">
             <div class="row align-items-center justify-content-between">
+                <div class="col-md">
+                    <div class="position-relative h-100">
+                        <img src="/img/manSigning.jpg" alt="Man signing a form." class="img-fluid x-auto d-none d-md-block imgCover">
+                    </div>
+                </div>
                 <div class="col-md p-5">
-                    <h2>Available TX Templates</h2>
-                    <p class="lead">Templates for TX requests are available for the following documents:
+                    <h2>Available Texas Templates</h2>
+                    <p class="lead">Templates for Texas requests are available for the following:
                         <ul class="templates">
-                            <% for(let i=0; i<flTemplates.length; i++) { %>
-                                <li class="available-templates">
-                                    <span><%= flTemplates[i].countyName[0].toUpperCase() + flTemplates[i].countyName.slice(1) %></span>
-                                    <% if (flTemplates[i].tier === 'sc') { %>
-                                        <span>Small Claims</span>
-                                    <% } else if (flTemplates[i].tier === 'cc') { %>
-                                        <span>County Civil</span>
-                                    <% } else if (flTemplates[i].tier === 'ca') { %>
-                                        <span>Circuit Civil</span>
-                                    <% } %>
-                                    <span id="mongoId" class="hidden"><%= flTemplates[i]._id %></span>
-                                </li>
-                            <% } %>
+                            <% txTemplates.forEach(template => {%>
+                                <li><%= template.templateType %></li>
+                            <% }) %>
                         </ul>
                     </p>
                 </div>
@@ -143,5 +133,8 @@
             autosave_restore_when_empty:true
         });
     </script> -->
+    <footer class="p-5 text-light text-center navbarBg">
+        <span>Created by: <a href="https://github.com/XiaoLGrant" class="text-light">Xiao Grant</a></span>
+    </footer>
 
 <%- include('partials/footer') -%>
