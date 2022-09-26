@@ -6,12 +6,47 @@
             <h1>Manage Templates</h1>
         </div>
     </section>
-    
-    <section class="p-5 bg-light" id="txTemplatesSection">
+
+    <section class="p-2 mt-5 bg-light" id="txTemplatesSection">
         <div class="container rounded-3 p-4 bg-body">
-            <h2>Texas</h2>
+            <h2 class="text-center">Texas</h2>
             <div>
-                <h3>Add Template</h3>
+                <div class="row">
+                    <div class="col-11"><h3 class="fs-4">Add Template</h3></div>
+                    <div class="col-1"><button type="button" class="btn btn-dark btn-sm rounded-circle roundBtn" data-bs-toggle="modal" data-bs-target="#txUploadTemplateHelp"> ? </button></div>
+                </div>
+                
+                <div class="modal fade" id="txUploadTemplateHelp" tabindex="-1" aria-labelledby="txUploadTemplateHelp" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="txUploadTemplateHelpLabel">Uploading your own TX template</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>If you would like to upload your own template to use, it must be in pdf format and have the following text fields:
+                                    <ul>
+                                        <li>caseNumber</li>
+                                        <li>servee1</li>
+                                        <li>servee2</li>
+                                        <li>courtInfo</li>
+                                        <li>caseInfo</li>
+                                        <li>serviceType</li>
+                                        <li>docReturnType</li>
+                                        <li>matterNumber</li>
+                                        <li>generateDate</li>
+                                        <li>returnAdd</li>
+                                        <li>userName</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+
                 <form action="/templates/add/tx" enctype="multipart/form-data" method="POST">
                     <div class="row">
                         <div class="col">
@@ -38,19 +73,42 @@
             </div>
 
             <div>
-                <h3>Available Templates</h3>
+                <div class="row">
+                    <div class="col-11"><h3 class="fs-4">Available Templates</h3></div>
+                    <div class="col-1"><button type="button" class="btn btn-dark btn-sm rounded-circle roundBtn" data-bs-toggle="modal" data-bs-target="#txEditTemplateHelp"> ? </button></div>
+                </div>
+
+                <div class="modal fade" id="txEditTemplateHelp" tabindex="-1" aria-labelledby="txEditTemplateHelp" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="txEditTemplateHelpLabel">Editing and deleting templates</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You can only edit or delete templates that you have uploaded.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 <table class="table">
                     <tbody>
                         <% txTemplates.forEach(template => { %>
                             <tr data-id="<%=template._id%>">
-                                <td>
-                                    <span><%= template.templateType %></span>
+                                <td class="col-sm-10">
+                                    <span class="align-middle"><%= template.templateType %></span>
                                 </td>
-                                <td>
-                                    <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <td class="col-sm-2 text-end">
+                                    <% if (template.user === user.id) {%>
+                                    <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
                                     <form class="d-inline-block" action="/templates/delete/tx/<%= template._id %>?_method=DELETE" method="POST">
-                                        <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                                        <button class="btn btn-primary btn-sm" type="submit"><i class="fa-regular fa-trash-can"></i></button>
                                     </form>
+                                    <% } %>
                                 </td>
                             </tr>
                         <% }) %>
@@ -60,11 +118,50 @@
         </div>
     </section>
      
-    <section class="p-2 bg-light" id="flTemplatesSection">
+    <section class="p-2 my-5 bg-light" id="flTemplatesSection">
         <div class="container rounded-3 p-4 bg-body">
-            <h2>Florida</h2>
+            <h2 class="text-center">Florida</h2>
             <div>
-                <h3>Add Template</h3>
+                <div class="row">
+                    <div class="col-11">
+                        <h3 class="fs-4">Add Template</h3>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-dark btn-sm rounded-circle roundBtn" data-bs-toggle="modal" data-bs-target="#flUploadTemplate"> ? </button>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="flUploadTemplate" tabindex="-1" aria-labelledby="flUploadTemplate" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="flUploadTemplateLabel">Uploading your own FL template</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>If you would like to upload your own template to use, it must be in pdf format and have the following text fields:
+                                <ul>
+                                    <li>caseNumber</li>
+                                    <li>matterNumber</li>
+                                    <li>plaintiff</li>
+                                    <li>defendant</li>
+                                    <li>servee</li>
+                                    <li>summonsTitle</li>
+                                    <li>customer</li>
+                                </ul>
+                                If you are uploading a template for a county that has multiple divisions (e.g. Broward, Miami-dade, Monroe, Polk) and the court address needs to be on the document, the following text field must be on the pdf file you upload:
+                                <ul>
+                                    <li>courtAddress</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 <form action="/templates/add/fl" enctype="multipart/form-data" method="POST">
                     <div class="row">
                         <div class="col">
@@ -106,27 +203,49 @@
             </div>
 
             <div>
-                <h3>Available Templates</h3>
+                <div class="row">
+                    <div class="col-11"><h3 class="fs-4">Available Templates</h3></div>
+                    <div class="col-1"><button type="button" class="btn btn-dark btn-sm rounded-circle roundBtn" data-bs-toggle="modal" data-bs-target="#flEditTemplateHelp"> ? </button></div>
+                </div>
+
+                <div class="modal fade" id="flEditTemplateHelp" tabindex="-1" aria-labelledby="flEditTemplateHelp" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="flEditTemplateHelpLabel">Editing and deleting templates</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You can only edit or delete templates that you have uploaded.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <table class="table">
                     <tbody>
                         <% flTemplates.forEach(template => { %>
                             <tr class="available-templates" data-id="<%=template._id%>">
-                                <td>
-                                    <span><%= template.countyName[0].toUpperCase() + template.countyName.slice(1) %></span>
+                                <td class="col-sm-10">
+                                    <span class="align-middle"><%= template.countyName[0].toUpperCase() + template.countyName.slice(1) %></span>
                                     <% if (template.tier === 'sc') { %>
-                                        <span>Small Claims</span>
+                                        <span class="align-middle">Small Claims</span>
                                     <% } else if (template.tier === 'cc') { %>
-                                        <span>County Civil</span>
+                                        <span class="align-middle">County Civil</span>
                                     <% } else if (template.tier === 'ca') { %>
-                                        <span>Circuit Civil</span>
+                                        <span class="align-middle">Circuit Civil</span>
                                     <% } %>
-                                    <span><%= template.templateType %></span>
+                                    <span class="align-middle"><%= template.templateType %></span>
                                 </td>
-                                <td>
-                                    <a href="/templates/update/fl/<%= template._id %>" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <td class="col-sm-2 text-end">
+                                    <% if (template.user === user.id) {%>
+                                    <a href="/templates/update/fl/<%= template._id %>" class="btn btn-secondary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
                                     <form class="d-inline-block" action="/templates/delete/fl/<%= template._id %>?_method=DELETE" method="POST">
-                                        <button class="btn btn-primary" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                                        <button class="btn btn-primary btn-sm" type="submit"><i class="fa-regular fa-trash-can"></i></button>
                                     </form>
+                                    <% } %>
                                 </td>
                             </tr>
                         <% }) %>

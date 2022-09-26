@@ -1,52 +1,64 @@
 const { PDFDocument, StandardFonts, rgb } = PDFLib
 
-document.querySelector('#create').addEventListener('click', fillForm)
+document.querySelector('#create').addEventListener('click', fillAndDownload)
+document.querySelector('#viewPdf').addEventListener('click', fillAndView)
 
-async function fillForm() {
-  //Get form
-  const url = getTemplate()
-  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
-  const pdfDoc = await PDFDocument.load(existingPdfBytes)
-  const form = pdfDoc.getForm()
+async function fill() {
+    //Get form
+    const url = getTemplate()
+    const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+    const pdfDoc = await PDFDocument.load(existingPdfBytes)
+    const form = pdfDoc.getForm()
+  
+    //Get the form fields
+    const caseNumField = form.getTextField('caseNumber')
+    const servee1AddField = form.getTextField('servee1')
+    const servee2AddField = form.getTextField('servee2')
+    const courtInfo = form.getTextField('courtInfo')
+    const caseInfo = form.getTextField('caseInfo')
+    const serviceType = form.getTextField('serviceType')
+    const docReturnType = form.getTextField('docReturnType')
+    const matterNum = form.getTextField('matterNumber')
+    const generatedDate = form.getTextField('generateDate')
+    const returnAddress = form.getTextField('returnAdd')
+    const signature = form.getTextField('userName')
+  
+    //Fill out the form fields
+    caseNumField.setText(getCaseNum())
+    courtInfo.setText(`Clerk of the Court\n${getCounty()}, Texas\n${getCourtAddress()}`)
+    caseInfo.setText(`${getPlaintiff()} vs. ${getDefendant()}; ${getCourt()}`)
+    servee1AddField.setText(getServee1Info())
+    servee2AddField.setText(getServee2Info())
+    serviceType.setText(`Please issue a separate Citation for each defendant for service by a ${getServiceType()}.`)
+    docReturnType.setText(await getDocReturnMethod())
+    matterNum.setText(`Matter Number: ${getMatterNum()}`)
+    generatedDate.setText(`Generated: ${getDate()}`)
+    returnAddress.setText(await getLetterHeading())
+    signature.setText(await getSignature())
 
-  //Get the form fields
-  const caseNumField = form.getTextField('caseNumber')
-  const servee1AddField = form.getTextField('servee1')
-  const servee2AddField = form.getTextField('servee2')
-  const courtInfo = form.getTextField('courtInfo')
-  const caseInfo = form.getTextField('caseInfo')
-  const serviceType = form.getTextField('serviceType')
-  const docReturnType = form.getTextField('docReturnType')
-  const matterNum = form.getTextField('matterNumber')
-  const generatedDate = form.getTextField('generateDate')
-  const returnAddress = form.getTextField('returnAdd')
-  const signature = form.getTextField('userName')
+    form.flatten()
 
-  //Fill out the form fields
-  caseNumField.setText(getCaseNum())
-  courtInfo.setText(`Clerk of the Court\n${getCounty()}, Texas\n${getCourtAddress()}`)
-  caseInfo.setText(`${getPlaintiff()} vs. ${getDefendant()}; ${getCourt()}`)
-  servee1AddField.setText(getServee1Info())
-  servee2AddField.setText(getServee2Info())
-  serviceType.setText(`Please issue a separate Citation for each defendant for service by a ${getServiceType()}.`)
-  docReturnType.setText(await getDocReturnMethod())
-  matterNum.setText(`Matter Number: ${getMatterNum()}`)
-  generatedDate.setText(`Generated: ${getDate()}`)
-  returnAddress.setText(await getLetterHeading())
-  signature.setText(await getSignature())
+    //Convert pdf to format viewable in an iframe
+    const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
 
-  // form.flatten()
+    // Serialize the PDFDocument to bytes (a Uint8Array)
+    const pdfBytes = await pdfDoc.save()
 
-  //Convert pdf to format viewable in an iframe and display in iframe
-  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  document.getElementById('pdfPreview').src = pdfDataUri;
+    const returnPdf = [pdfDataUri, pdfBytes]
+    return returnPdf
+}
 
-  // Serialize the PDFDocument to bytes (a Uint8Array)
-  //const pdfBytes = await pdfDoc.save()
+async function fillAndView() {
+  const pdf = await fill()
+  document.getElementById('pdfPreview').src = pdf[0];
+}
+
+async function fillAndDownload() {
+  const pdfDoc = await fill()
+  const pdfName = getMatterNum()
 
   // Trigger the browser to download the PDF document
-  //download(pdfBytes, "pdf-lib_form_creation_example.pdf", "application/pdf");
-
+  download(pdfDoc[1], `${pdfName} let`, "application/pdf");
 }
 
 //Helper function to get value from a form

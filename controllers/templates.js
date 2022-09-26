@@ -1,7 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const FLTemplates = require('../models/FLTemplates');
 const TXTemplates = require('../models/TXTemplates');
-const Customers = require('../models/Customers');
+const User = require("../models/User");
 
 module.exports = {
     getTemplates: async (req,res)=>{
@@ -13,7 +13,9 @@ module.exports = {
             const txTemplates = await TXTemplates.find().sort({
                 templateType: 1
             });
-            res.render('templateDashboard.ejs', {flTemplates: flTemplates, txTemplates: txTemplates});
+            console.log(flTemplates[6])
+            console.log(await req.user.id)
+            res.render('templateDashboard.ejs', {flTemplates: flTemplates, txTemplates: txTemplates, user: req.user});
         }catch(err){
             console.log(err);
         }

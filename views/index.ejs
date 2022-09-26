@@ -64,10 +64,10 @@
         </div>
     </section>
 
-    <section id="flTemplates" class="bg-dark text-light">
-        <div class="container-flui">
+    <section id="flTemplates" class="bg-dark text-light p-5 homePictureFl">
+        <div class="container-md my-4">
             <div class="row align-items-center justify-content-between">
-                <div class="col-md p-5">
+                <div class="col-xl-5">
                     <h2>Available Florida Templates</h2>
                     <p class="lead">Templates for Florida summonses, aliases, and pluries are available in the following counties:
                         <ul class="templates">
@@ -77,26 +77,23 @@
                         </ul>
                     </p>
                 </div>
-                <div class="col-md">
-                    <div class="position-relative h-100">
-                        <img src="/img/usingLaptop.jpg" alt="Person typing on a laptop." class="img-fluid x-auto d-none d-md-block imgCover">
-                    </div>
+                <div class="col-xl-7">
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="txTemplates" class="align-items-center">
-        <div class="container-fluid">
+    <section id="txTemplates" class="p-5 homePictureTx">
+        <div class="container-md my-4">
             <div class="row align-items-center justify-content-between">
-                <div class="col-md">
-                    <div class="position-relative h-100">
-                        <img src="/img/manSigning.jpg" alt="Man signing a form." class="img-fluid x-auto d-none d-md-block imgCover">
-                    </div>
+                <div class="col-xl-7">
+                    <!-- <div class="position-relative h-100">
+                        <img src="/img/manSigning.jpg" alt="Man signing a form." class="x-auto d-none d-md-block imgCover">
+                    </div> -->
                 </div>
-                <div class="col-md p-5">
+                <div class="col-xl-5">
                     <h2>Available Texas Templates</h2>
-                    <p class="lead">Templates for Texas requests are available for the following:
+                    <p class="lead">Templates for Texas citation requests are available for the following:
                         <ul class="templates">
                             <% txTemplates.forEach(template => {%>
                                 <li><%= template.templateType %></li>
@@ -107,6 +104,7 @@
             </div>
         </div>
     </section>
+
     <!-- <div>
         <h2>Generate a batch of documents:</h2>
         <ol>

@@ -30,8 +30,10 @@ const FLTemplatesSchema = new mongoose.Schema({
     required: true,
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "User",
+    type: String,
+    required: true,
   },
   createdOn: {
     type: Date,

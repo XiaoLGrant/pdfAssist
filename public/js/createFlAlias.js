@@ -1,49 +1,60 @@
 const { PDFDocument, StandardFonts, rgb } = PDFLib
 
-document.querySelector('#create').addEventListener('click', fillForm)
+document.querySelector('#create').addEventListener('click', fillAndDownload)
+document.querySelector('#viewPdf').addEventListener('click', fillAndView)
 
-async function fillForm() {
-  //Get form
-  const url = getTemplate()
-  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
-  const pdfDoc = await PDFDocument.load(existingPdfBytes)
-  const form = pdfDoc.getForm()
+async function fill() {
+    //Get form
+    const url = getTemplate()
+    const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+    const pdfDoc = await PDFDocument.load(existingPdfBytes)
+    const form = pdfDoc.getForm()
+  
+  
+    //Get the form fields
+    const caseNumField = form.getTextField('caseNumber')
+    const matterNum = form.getTextField('matterNumber')
+    const plaintiff = form.getTextField('plaintiff')
+    const defendant = form.getTextField('defendant')
+    const servee = form.getTextField('servee')
+    const summonsTitle = form.getTextField('summonsTitle')
+    const customer = form.getTextField('customer')
+    const customerText = await getCustomerInfo()
+  
+    //Get and fill out court address form field if county is Miami-Dade -- may need to update with other counties (monroe & polk) in the future
+    const tier = $( "#tierInfo" ).find('option:selected').data("tier")
+    if ( (getFormValue('#countyInfo') == 'Miami-Dade' && tier == 'cc') || 
+         (getFormValue('#countyInfo') == 'Miami-Dade' && tier == 'ca') || 
+         (getFormValue('#countyInfo') == 'Broward' && tier == 'cc') || 
+         (getFormValue('#countyInfo') == 'Broward' && tier == 'ca') ) {
+      const courtAddress = form.getTextField('courtAddress')
+      courtAddress.setText(`${await getCourtAddress()}`)
+    }
+  
+    //Fill out the form fields
+    caseNumField.setText(`Case No. ${getCaseNum()}`)
+    matterNum.setText(`Matter Number: ${getMatterNum()}`)
+    plaintiff.setText(getPlaintiff())
+    defendant.setText(getDefendant())
+    servee.setText(getServeeInfo())
+    summonsTitle.setText(getSummonsTitle())
+    customer.setText(`${customerText}`)
 
+    form.flatten()
 
-  //Get the form fields
-  const caseNumField = form.getTextField('caseNumber')
-  const matterNum = form.getTextField('matterNumber')
-  const plaintiff = form.getTextField('plaintiff')
-  const defendant = form.getTextField('defendant')
-  const servee = form.getTextField('servee')
-  const summonsTitle = form.getTextField('summonsTitle')
-  const customer = form.getTextField('customer')
-  const customerText = await getCustomerInfo()
+    //Convert pdf to format viewable in an iframe
+    const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
 
-  //Get and fill out court address form field if county is Miami-Dade -- may need to update with other counties (monroe & polk) in the future
-  const tier = $( "#tierInfo" ).find('option:selected').data("tier")
-  if ( (getFormValue('#countyInfo') == 'Miami-Dade' && tier == 'cc') || 
-       (getFormValue('#countyInfo') == 'Miami-Dade' && tier == 'ca') || 
-       (getFormValue('#countyInfo') == 'Broward' && tier == 'cc') || 
-       (getFormValue('#countyInfo') == 'Broward' && tier == 'ca') ) {
-    const courtAddress = form.getTextField('courtAddress')
-    courtAddress.setText(`${await getCourtAddress()}`)
-  }
+    // Serialize the PDFDocument to bytes (a Uint8Array)
+    const pdfBytes = await pdfDoc.save()
 
-  //Fill out the form fields
-  caseNumField.setText(`Case No. ${getCaseNum()}`)
-  matterNum.setText(`Matter Number: ${getMatterNum()}`)
-  plaintiff.setText(getPlaintiff())
-  defendant.setText(getDefendant())
-  servee.setText(getServeeInfo())
-  summonsTitle.setText(getSummonsTitle())
-  customer.setText(`${customerText}`)
+    const returnPdf = [pdfDataUri, pdfBytes]
+    return returnPdf
+}
 
-  // form.flatten()
-
-  //Convert pdf to format viewable in an iframe and display in iframe
-  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  document.getElementById('pdfPreview').src = pdfDataUri;
+async function fillAndView() {
+  const pdf = await fill()
+  document.getElementById('pdfPreview').src = pdf[0];
 
   // Serialize the PDFDocument to bytes (a Uint8Array)
   //const pdfBytes = await pdfDoc.save()
@@ -52,6 +63,15 @@ async function fillForm() {
   //download(pdfBytes, "pdf-lib_form_creation_example.pdf", "application/pdf");
 
 }
+
+async function fillAndDownload() {
+  const pdfDoc = await fill()
+  const pdfName = getMatterNum()
+
+  // Trigger the browser to download the PDF document
+  download(pdfDoc[1], `${pdfName} sum`, "application/pdf");
+}
+
 
 //Helper function to get value from a form
 function getFormValue(selector) {

@@ -1,44 +1,9 @@
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
 .hidden {
     display: none;
-}
-
-nav ul li {
-    display: inline-block;
-    
-}
-
-.inputFields {
-    width: 20%;
-    padding: 1em;
-}
-
-.inputFields label, .inputFields input, .inputFields textArea {
-    display: block;
-    width: 100%;
-}
-
-.inputPreview {
-    display: flex;
-}
-
-.docPreview {
-    width: 80%;
-    padding: 1em;
-}
-
-legend {
-    font-weight: bold;
-}
-
-.newTemplateButton {
-    padding: 0 0.5em;
-    border: 1px solid #24a0ed;
-    border-radius: 5px;
-    background: #24a0ed;
-    height: 5em;
 }
 
 .txServiceDocReturn {
@@ -53,20 +18,8 @@ legend {
     min-height: 4em;
 }
 
-@media screen and (max-width: 1050px) {
-    .inputFields {
-        width: 100%;
-    }
-}
-
-@media (min-width: 540px) and (max-width: 1050px) {
-    .inputFields {
-        width: 50%;
-    }
-}
-
 iframe {
-    height: 85vh;
+    height: 70vh;
     width: 100%;
 }
 
@@ -94,6 +47,10 @@ iframe {
     border-color: #cf6030  !important;
 }
 
+.btn-dark {
+    background-color: #01263b !important;
+}
+
 .bg-dark {
     background-color: #01263b !important;
 }
@@ -103,7 +60,7 @@ iframe {
 }
 
 .signUpButton {
-    background-color: #055888;
+    background-color: #055888 !important;
 }
 
 .signUpButton a {
@@ -121,7 +78,7 @@ iframe {
 .imgCover {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .signUpTextArea {
@@ -131,4 +88,47 @@ iframe {
 
 .dropdown-item:hover {
     background-color: #074366;
+}
+
+.morePadding {
+    padding: 0 8rem;
+}
+
+.homePictureFl {
+    background-image: url("../../img/usingLaptop.jpg");
+    background-size: 57%;
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-color: rgba(1, 38, 59, 1);
+}
+
+.homePictureTx {
+    background-image: url("../../img/manSigning.jpg");
+    background-size: 55%;
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
+.roundBtn {
+    width: 2.25em;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+}
+
+td {
+    word-wrap: break-word;
+    min-width: 160px;
+    max-width: 160px;
+}
+
+@media only screen and (max-width: 1199px) {
+    .homePictureFl {
+        background-image: none;
+        background-color: rgba(1, 38, 59, 1);
+    }
+    .homePictureTx {
+        background-image: none;
+    }
 }
