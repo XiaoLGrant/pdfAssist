@@ -2,7 +2,7 @@
 # pdfAssist
 This full stack web application allows users to create documents ready for filing in FL and TX courts by simply filing out a form. Users can create accounts, manage their own customer lists and templates, and generate FL summonses or TX citation requests.
 
-![pdfAssist landing page](/public/img/landing.png)
+![pdfAssist landing page](/public/img/landingCrop.png)
 
 ## How It's Made:
 #### Tech used:
