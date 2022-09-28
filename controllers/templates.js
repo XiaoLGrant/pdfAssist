@@ -13,8 +13,7 @@ module.exports = {
             const txTemplates = await TXTemplates.find().sort({
                 templateType: 1
             });
-            console.log(flTemplates[6])
-            console.log(await req.user.id)
+
             res.render('templateDashboard.ejs', {flTemplates: flTemplates, txTemplates: txTemplates, user: req.user});
         }catch(err){
             console.log(err);
@@ -35,6 +34,7 @@ module.exports = {
                 file: result.secure_url,
                 deleted: false,
                 user: req.user.id,
+                private: req.body.private,
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('FL template has been added');
@@ -67,6 +67,7 @@ module.exports = {
                 file: result.secure_url,
                 deleted: false,
                 user: req.user.id,
+                private: req.body.private,
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('FL template has been updated');
@@ -90,6 +91,7 @@ module.exports = {
     //Tx Templates
     uploadTxTemplate: async (req, res)=>{
         try{
+            console.log(req.body)
             const result = await cloudinary.uploader.upload(req.file.path);
 
             await TXTemplates.create({
@@ -99,6 +101,7 @@ module.exports = {
                 file: result.secure_url,
                 deleted: false,
                 user: req.user.id,
+                private: req.body.private,
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('Tx Template has been added');
@@ -129,6 +132,7 @@ module.exports = {
                 file: result.secure_url,
                 deleted: false,
                 user: req.user.id,
+                private: req.body.private,
                 createdOn: new Date().toLocaleDateString()
             });
             console.log('TX template has been updated');

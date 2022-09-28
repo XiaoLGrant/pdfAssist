@@ -24,6 +24,18 @@
                     <label for="txFileUpload" class="form-label">File</label>
                     <input type="file" class="form-control" id="txFileUpload" name="file">
                 </div>
+                <div class="col-md-4">
+                    <label for="privateFlTemplate" class="form-label">Template Availability</label>
+                    <select class="form-select" aria-label="Select 'private' if you would like to keep your template private or 'public' make it available to all users." id="privateFlTemplate" name="private">
+                        <% if(txTemplate.private === true) {%>
+                            <option value="false">Public</option>
+                            <option value="true" selected>Private</option>
+                        <% } else { %>
+                            <option value="false" selected>Public</option>
+                            <option value="true">Private</option>
+                        <% } %>
+                    </select>
+                </div>
             </div>
             </div>
             <div class="row">

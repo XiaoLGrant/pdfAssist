@@ -63,6 +63,14 @@
                             <label for="txFileUpload" class="form-label">File</label>
                             <input type="file" class="form-control" id="txFileUpload" name="file">
                         </div>
+                        <div class="col-md-4">
+                            <label for="privateTxTemplate" class="form-label">Template Availability</label>
+                            <select class="form-select" aria-label="Select 'private' if you would like to keep your template private or 'public' make it available to all users." id="privateTxTemplate" name="private">
+                                <option value=false>Public</option>
+                                <option value=true>Private</option>
+                            </select>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col">
@@ -98,19 +106,21 @@
                 <table class="table">
                     <tbody>
                         <% txTemplates.forEach(template => { %>
-                            <tr data-id="<%=template._id%>">
-                                <td class="col-sm-10">
-                                    <span class="align-middle"><%= template.templateType %></span>
-                                </td>
-                                <td class="col-sm-2 text-end">
-                                    <% if (template.user === user.id) {%>
-                                    <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <form class="d-inline-block" action="/templates/delete/tx/<%= template._id %>?_method=DELETE" method="POST">
-                                        <button class="btn btn-primary btn-sm" type="submit"><i class="fa-regular fa-trash-can"></i></button>
-                                    </form>
-                                    <% } %>
-                                </td>
-                            </tr>
+                            <% if(template.private === false || (template.private === true && template.user === user.id) || user.id === process.env.ADMIN_ID) {%>
+                                <tr data-id="<%=template._id%>">
+                                    <td class="col-sm-10">
+                                        <span class="align-middle"><%= template.templateType %></span>
+                                    </td>
+                                    <td class="col-sm-2 text-end">
+                                        <% if (template.user === user.id || user.id === process.env.ADMIN_ID) {%>
+                                        <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <form class="d-inline-block" action="/templates/delete/tx/<%= template._id %>?_method=DELETE" method="POST">
+                                            <button class="btn btn-primary btn-sm" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                                        </form>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% } %>
                         <% }) %>
                     </tbody>
                 </table>
@@ -169,8 +179,8 @@
                             <input type="text" class="form-control" id="templateType" name="templateType" value="Summons" readonly>
                         </div>
                         <div class="col-sm-2">
-                            <label for="stateName" class="form-label">State</label>
-                            <input class="form-control" id="stateName" name="state" maxlength="2" value="FL" readonly>
+                            <label for="stateNameFl" class="form-label">State</label>
+                            <input class="form-control" id="stateNameFl" name="state" maxlength="2" value="FL" readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -192,6 +202,13 @@
                         <div class="col">
                             <label for="flFileUpload" class="form-label">File</label>
                             <input type="file" class="form-control" id="flFileUpload" name="file">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="privateFlTemplate" class="form-label">Template Availability</label>
+                            <select class="form-select" aria-label="Select 'private' if you would like to keep your template private or 'public' make it available to all users." id="privateFlTemplate" name="private">
+                                <option value=false>Public</option>
+                                <option value=true>Private</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
