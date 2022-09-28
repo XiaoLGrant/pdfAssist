@@ -5,7 +5,7 @@ This full stack web application allows users to create documents ready for filin
 ![pdfAssist landing page](/public/img/landingCrop.png)
 
 ## How It's Made:
-#### Tech used:
+#### Tech Stack:
 <p>
   <img src="https://img.shields.io/static/v1?label=|&message=HTML5&labelColor=42494F&color=213a59&style=for-the-badge&logo=HTML5&logo-color=white"/>
   <img src="https://img.shields.io/static/v1?label=|&message=CSS3&labelColor=42494F&color=213a59&style=for-the-badge&logo=CSS3&logoColor=2862e9&logo-color=white"/>
