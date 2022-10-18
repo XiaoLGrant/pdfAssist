@@ -5,7 +5,7 @@
         <div class="container">
             <h1>Generate a Texas Citation Request</h1>
         </div>
-    </section>
+    </section>  
 
     <section class="p-4 bg-light">
         <div class="container bg-body rounded-4 p-4 mb-4">
@@ -64,11 +64,18 @@
                     <select class="form-select" name="txAliasTemplate" id="txAliasTemplate">
                         <option value="">Choose an option</option>
                         <% templates.forEach(template => { %>
-                            <option value="<%= template.file %>"><%= template.templateType %></option>
+
+                            <% if(template.user == userReq.id || userReq.id === process.env.ADMIN_ID || template.private === false) {%>
+                                <option value="<%= template.file %>"><%= template.templateType %></option>
+                            <% } %>
+
                         <% }) %>
                     </select>
                 </fieldset>
             </div>
+
+            
+
 
             <fieldset class="row">
                 <legend>Case Identifiers</legend>
