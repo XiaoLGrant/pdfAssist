@@ -65,11 +65,7 @@
                         <option value="">Choose an option</option>
                         <% templates.forEach(template => { %>
 
-                            <% if(template.user == userReq.id) {%>
-                                <option value="<%= template.file %>"><%= template.templateType %></option>
-                            <% } else if(userReq.id === process.env.ADMIN_ID) {%>
-                                <option value="<%= template.file %>"><%= template.templateType %></option>
-                            <% } else if (template.private === false) {%>
+                            <% if(template.user == userReq.id || userReq.id === process.env.ADMIN_ID || template.private === false) {%>
                                 <option value="<%= template.file %>"><%= template.templateType %></option>
                             <% } %>
 
