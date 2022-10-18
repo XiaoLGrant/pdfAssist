@@ -106,13 +106,13 @@
                 <table class="table">
                     <tbody>
                         <% txTemplates.forEach(template => { %>
-                            <% if(template.private === false || (template.private === true && template.user === user.id) || user.id === process.env.ADMIN_ID) {%>
+                            <% if((template.user == user.id) || user.id === process.env.ADMIN_ID || template.private === false) {%>
                                 <tr data-id="<%=template._id%>">
                                     <td class="col-sm-10">
                                         <span class="align-middle"><%= template.templateType %></span>
                                     </td>
                                     <td class="col-sm-2 text-end">
-                                        <% if (template.user === user.id || user.id === process.env.ADMIN_ID) {%>
+                                        <% if (template.user == user.id || user.id === process.env.ADMIN_ID) {%>
                                         <a href="/templates/update/tx/<%= template._id %>" class="btn btn-secondary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
                                         <form class="d-inline-block" action="/templates/delete/tx/<%= template._id %>?_method=DELETE" method="POST">
                                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa-regular fa-trash-can"></i></button>
@@ -244,27 +244,29 @@
                 <table class="table">
                     <tbody>
                         <% flTemplates.forEach(template => { %>
-                            <tr class="available-templates" data-id="<%=template._id%>">
-                                <td class="col-sm-10">
-                                    <span class="align-middle"><%= template.countyName[0].toUpperCase() + template.countyName.slice(1) %></span>
-                                    <% if (template.tier === 'sc') { %>
-                                        <span class="align-middle">Small Claims</span>
-                                    <% } else if (template.tier === 'cc') { %>
-                                        <span class="align-middle">County Civil</span>
-                                    <% } else if (template.tier === 'ca') { %>
-                                        <span class="align-middle">Circuit Civil</span>
-                                    <% } %>
-                                    <span class="align-middle"><%= template.templateType %></span>
-                                </td>
-                                <td class="col-sm-2 text-end">
-                                    <% if (template.user === user.id) {%>
-                                    <a href="/templates/update/fl/<%= template._id %>" class="btn btn-secondary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <form class="d-inline-block" action="/templates/delete/fl/<%= template._id %>?_method=DELETE" method="POST">
-                                        <button class="btn btn-primary btn-sm" type="submit"><i class="fa-regular fa-trash-can"></i></button>
-                                    </form>
-                                    <% } %>
-                                </td>
-                            </tr>
+                            <% if((template.user == user.id) || user.id === process.env.ADMIN_ID || template.private === false) {%>
+                                <tr class="available-templates" data-id="<%=template._id%>">
+                                    <td class="col-sm-10">
+                                        <span class="align-middle"><%= template.countyName[0].toUpperCase() + template.countyName.slice(1) %></span>
+                                        <% if (template.tier === 'sc') { %>
+                                            <span class="align-middle">Small Claims</span>
+                                        <% } else if (template.tier === 'cc') { %>
+                                            <span class="align-middle">County Civil</span>
+                                        <% } else if (template.tier === 'ca') { %>
+                                            <span class="align-middle">Circuit Civil</span>
+                                        <% } %>
+                                        <span class="align-middle"><%= template.templateType %></span>
+                                    </td>
+                                    <td class="col-sm-2 text-end">
+                                        <% if (template.user == user.id || user.id === process.env.ADMIN_ID) {%>
+                                        <a href="/templates/update/fl/<%= template._id %>" class="btn btn-secondary btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <form class="d-inline-block" action="/templates/delete/fl/<%= template._id %>?_method=DELETE" method="POST">
+                                            <button class="btn btn-primary btn-sm" type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                                        </form>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% } %>
                         <% }) %>
                     </tbody>
                 </table>

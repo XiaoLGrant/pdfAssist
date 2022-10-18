@@ -6,7 +6,8 @@ module.exports = {
         try {
             const flTemplates = await FLTemplates.find().sort({countyName: 1, tierName: 1})
             const customers = await Customers.find({userID: req.user.id}).sort({customerName: 1})
-            const filteredTemplates = await flTemplates.reduce((acc, c) => {
+            const availableTemplates = await flTemplates.filter(template => (template.user == req.user.id || req.user.id == process.env.ADMIN_ID || template.private === false))
+            const filteredTemplates = await availableTemplates.reduce((acc, c) => {
                 if (!acc[c.countyName]) {
                     acc[c.countyName] = 0
                 }
