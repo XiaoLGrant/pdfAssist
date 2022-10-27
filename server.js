@@ -28,25 +28,29 @@ connectDB()
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
+
+//Body parsing -- allows us to pull information out of a form so it can be sent to the server
 app.use(express.urlencoded({ extended: true }))
-app.use(methodOverride("_method"))
 app.use(express.json())
+
+//Use forms for put/delete
+app.use(methodOverride("_method"))
+
 app.use(logger('dev'))
 app.use(cors())
 
-// Sessions
+// Sessions -- allows users to stay logged in (can close browser and come back and will still be logged in) and saves sessions to mongo
 app.use(
     session({
       secret: 'keyboard cat',
-      /*store: MongoStore.create({ mongooseConnection: mongoose.connection,*/
-      //mongoUrl: process.env.DB_STRING,
-      secret: 'thisisasecret',
-      // touchAfter: 24 * 60 * 60 }),
       resave: false,
       saveUninitialized: false,
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
   )
+
+  //app.use( session({ secret: "keyboard cat", resave: false, saveUninitialized: false, store: MongoStore.create({ mongoUrl: process.env.MONGO_URI, }), }) );
+
 
 // Passport middleware
 app.use(passport.initialize())
