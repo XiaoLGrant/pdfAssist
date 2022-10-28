@@ -16,7 +16,7 @@ const connectDB = require('./config/database')
 const homeRoutes = require('./routes/home')
 const templateRoutes = require('./routes/templates')
 const editTemplateRoutes = require('./routes/editTemplate')
-const createFlAliasRoutes = require('./routes/createFLAlias')
+const createFlAliasRoutes = require('./routes/createFlAlias')
 const createTxAliasRoutes = require('./routes/createTxAlias')
 
 dotenv.config({path: './config/.env'})
@@ -65,6 +65,6 @@ app.use('/createFlAlias', createFlAliasRoutes)
 app.use('/createTxAlias', createTxAliasRoutes)
 
  
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
     console.log(`Server is running on Port ${process.env.PORT}`)
 })    
