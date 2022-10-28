@@ -1,6 +1,11 @@
 
-# pdfAssist
+# [pdfAssist](https://pdfassist.cyclic.app/)
 This full stack web application allows users to create documents ready for filing in FL and TX courts by simply filing out a form. Users can create accounts, manage their own customer lists and templates, and generate FL summonses or TX citation requests.
+
+Check out the app [here](https://pdfassist.cyclic.app/).
+Test login:
+Email: test1@test1.com
+PW: 12345678
 
 ![pdfAssist landing page](/public/img/landingCrop.png)
 
@@ -43,10 +48,14 @@ This app was built following MVC architecture. The front end was built using EJS
 ## Optimizations:
 In the future, I would like to build out the following features:
 - Generate multiple templates by uploading a .xlsx file containing the necessary information
-- Template selection when generating a pdf will be filtered so it only shows public templates and a user's template.
+- Template selection when generating a pdf will be automatically filtered to only show a user's templates when if they make that selection in their settings
 - Preview a template from the templates dashboard
 - Build out a court database so clerks, court addresses, and document return methods can be auto-selected so the user only has to select the county
 - Expand template database to include FL Orders to Appoint Process Server and FL Writs of Garnishment
+- Limit the number of templates shown on the template page via pagination
+- Preview templates shown on on the template page
+- Display the last modified/upload date for each template on the templates page
+- Bug: On the TX citation generation page, the doc return method has to be unselected and re-selected before it works.
 
 ## Lessons Learned:
 When I started this app, I had wanted users to be able to edit/create templates using a built-in text editor. The [first iteration of this project](https://github.com/XiaoLGrant/fl-legal-doc-generator) used the TinyMCE editor, and I struggled to get the data to save in MongoDB so that it could be rendered in a way the user could print off a pdf of the document later and ultimately ended up relying on TinyMCE's built-in templating functions. However, I quickly realized that selecting a specific template from TinyMCE when there were a large number of templates to select from resulted in a difficult user experience. So, I changed my approach so that the template database relied on the user to create and upload pdf forms that could be filled out with pdf-lib.
