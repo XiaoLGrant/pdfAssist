@@ -24,10 +24,10 @@ iframe {
 }
 
 .indexHero {
-    background-image: -moz-linear-gradient(top, rgba(61, 60, 60, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/signingDocs.jpg");
-    background-image: -webkit-linear-gradient(top, rgba(61, 60, 60, 0.5), rgba(61, 60, 60, 0.5)), url("../../img/signingDocs.jpg");
-    background-image: -ms-linear-gradient(top, rgba(5, 47, 71, 0.5), rgba(5, 47, 71, 0.5)), url("../../img/signingDocs.jpg");
-    background-image: linear-gradient(top, rgba(5, 47, 71, 0.5), rgba(5, 47, 71, 0.5)), url("../../img/signingDocs.jpg");
+    background-image: -moz-linear-gradient(top, rgba(61, 60, 60, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/signingDocs.webp");
+    background-image: -webkit-linear-gradient(top, rgba(61, 60, 60, 0.5), rgba(61, 60, 60, 0.5)), url("../../img/signingDocs.webp");
+    background-image: -ms-linear-gradient(top, rgba(5, 47, 71, 0.5), rgba(5, 47, 71, 0.5)), url("../../img/signingDocs.webp");
+    background-image: linear-gradient(top, rgba(5, 47, 71, 0.5), rgba(5, 47, 71, 0.5)), url("../../img/signingDocs.webp");
     background-position: center 40%;
     background-size: cover;
 }
@@ -95,7 +95,7 @@ iframe {
 }
 
 .homePictureFl {
-    background-image: url("../../img/usingLaptop.jpg");
+    background-image: url("../../img/usingLaptop.webp");
     background-size: 57%;
     background-repeat: no-repeat;
     background-position: center right;
@@ -103,7 +103,7 @@ iframe {
 }
 
 .homePictureTx {
-    background-image: url("../../img/manSigning.jpg");
+    background-image: url("../../img/manSigning.webp");
     background-size: 55%;
     background-repeat: no-repeat;
     background-position: top left;
