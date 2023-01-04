@@ -8,14 +8,19 @@ module.exports = {
         try {
             const flTemplates = await FLTemplates.find().sort({countyName: 1, tierName: 1})
             const filteredFlTemplates = await flTemplates.reduce((acc, c) => {
-                if (!acc[c.countyName]) {
-                    acc[c.countyName] = 0
+                if (c.private === false) {
+                    if (!acc[c.countyName]) {
+                        acc[c.countyName] = 0
+                    }
+                    acc[c.countyName]++ 
                 }
-                acc[c.countyName]++
                 return acc
             }, {})
+
             const txTemplates = await TXTemplates.find().sort({templateType: 1})
-            res.render('index.ejs', {flTemplates: filteredFlTemplates, txTemplates: txTemplates, })
+            const publicTxTemplates = txTemplates.filter(template => template.private === false)
+            
+            res.render('index.ejs', {flTemplates: filteredFlTemplates, txTemplates: publicTxTemplates})
         } catch(err) {
             console.log(err)
         } 
